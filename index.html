@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>АРТС&КРАФТИНГ | Ремонт одежды</title>
+  <style>
+    :root {
+      --ios-green: #30d158;
+      --ios-blue: #0a84ff;
+      --ios-yellow: #ffd60a;
+      --ios-red: #ff453a;
+      --spring: cubic-bezier(0.25, 1, 0.5, 1.2);
+      
+      /* Светлая тема - сочное размытое стекло */
+      --mesh-1: #eef2f3;
+      --mesh-2: #e0e7ff;
+      --mesh-3: #fdf2f8;
+      --mesh-4: #fef3c7;
+      
+      --glass-bg: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      --glass-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.02);
+      
+      --text-main: #1c1c1e;
+      --text-muted: #6e6e73;
+      --divider: rgba(0, 0, 0, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.7);
+      
+      --island-bg: rgba(28, 28, 30, 0.92);
+      --glow-intensity: 0 0 12px;
+    }
+
+    /* Тёмная тема - глубокий космический стиль iOS 27 */
+    body.dark-theme {
+      --mesh-1: #09090b;
+      --mesh-2: #0f172a;
+      --mesh-3: #1e1b4b;
+      --mesh-4: #2e1065;
+      
+      --glass-bg: rgba(24, 24, 27, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(255,255,255,0.05);
+      
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --divider: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.03);
+      
+      --island-bg: rgba(10, 10, 12, 0.95);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--mesh-1);
+      color: var(--text-main);
+      line-height: 1.45;
+      overflow-x: hidden;
+      transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+    }
+
+    /* Живой градиентный фон (Mesh Gradient) с улучшенным контрастом */
+    .mesh-background {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background: radial-gradient(circle at 10% 30%, var(--mesh-1), transparent 60%),
+                  radial-gradient(circle at 90% 20%, var(--mesh-2), transparent 60%),
+                  radial-gradient(circle at 85% 85%, var(--mesh-3), transparent 60%),
+                  radial-gradient(circle at 15% 80%, var(--mesh-4), transparent 60%);
+      filter: blur(70px);
+      animation: breathe 18s ease-in-out infinite alternate;
+      transition: all 0.6s ease;
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(2%, 3%) rotate(3deg); }
+    }
+
+    /* Летние переливающиеся волны с эффектом градиентного свечения */
+    .summer-waves-bg {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 380px;
+      z-index: -3;
+      display: none;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .summer-wave {
+      position: absolute;
+      bottom: -10px; left: 0;
+      width: 200vw; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230a84ff" fill-opacity="0.2" d="M0,224L30,224C60,224,120,224,180,213.3C240,203,300,181,360,181.3C420,181,480,203,540,218.7C600,235,660,245,720,234.7C780,224,840,192,900,186.7C960,181,1020,203,1080,208C1140,213,1200,203,1260,181.3C1320,160,1380,128,1410,112L1440,96L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>') repeat-x;
+      background-size: 50% 100%;
+      animation: waveAnim 12s linear infinite;
+      filter: drop-shadow(0 0 15px rgba(10, 132, 255, 0.15));
+    }
+
+    .summer-wave:nth-child(2) {
+      bottom: -15px; opacity: 0.65;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd60a" fill-opacity="0.15" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,149.3C672,139,768,149,864,165.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      animation: waveAnim 18s linear infinite reverse;
+    }
+
+    .summer-wave:nth-child(3) {
+      bottom: -25px; opacity: 0.45;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23bf5af2" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,144C672,128,768,128,864,149.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      animation: waveAnim 26s linear infinite;
+    }
+
+    @keyframes waveAnim {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50vw); }
+    }
+
+    #particles-container {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      top: -50px;
+      animation: fall linear infinite, sway ease-in-out infinite alternate;
+      user-select: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 14px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      max-width: 532px;
+      margin: 0 auto;
+      height: 48px;
+    }
+
+    .island {
+      background: var(--island-bg);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), inset 0 0.5px 1px rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 0.2s var(--spring);
+    }
+    .island:active { transform: scale(0.96); }
+
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #636366; transition: all 0.5s ease; }
+    .dot.active { 
+      background: var(--ios-green); 
+      box-shadow: var(--glow-intensity) var(--ios-green); 
+      animation: pulse 2s infinite; 
+    }
+    .dot.holiday { 
+      background: var(--ios-red); 
+      box-shadow: var(--glow-intensity) var(--ios-red); 
+    }
+    .dot.vacation { 
+      background: var(--ios-yellow); 
+      box-shadow: var(--glow-intensity) var(--ios-yellow); 
+      animation: pulse 2.5s infinite; 
+    }
+
+    @keyframes pulse { 
+      0%, 100% { opacity: 1; transform: scale(1); } 
+      50% { opacity: 0.65; transform: scale(1.15); } 
+    }
+
+    /* Футуристичный Бета-значок */
+    #beta-badge {
+      background: rgba(255, 159, 10, 0.12);
+      border: 1px solid rgba(255, 159, 10, 0.45);
+      color: #ff9f0a;
+      backdrop-filter: blur(12px);
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(255, 159, 10, 0.15);
+      animation: betaPulse 2.5s infinite ease-in-out;
+      margin-left: auto;
+      margin-right: 12px;
+    }
+
+    @keyframes betaPulse {
+      0%, 100% { opacity: 0.85; transform: scale(1); box-shadow: 0 4px 12px rgba(255, 159, 10, 0.15); }
+      50% { opacity: 1; transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 159, 10, 0.3); }
+    }
+
+    /* Меню языков и темы */
+    .lang-switcher { position: relative; }
+    
+    .lang-btn {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s var(--spring), background-color 0.3s;
+    }
+    .lang-btn:active { transform: scale(0.94); }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(34px) saturate(210%);
+      -webkit-backdrop-filter: blur(34px) saturate(210%);
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-12px) scale(0.95);
+      transition: all 0.3s var(--spring);
+      min-width: 170px;
+    }
+    .lang-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+
+    .lang-option {
+      padding: 13px 18px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--divider);
+      color: var(--text-main);
+      transition: background-color 0.2s;
+    }
+    .lang-option:last-child { border-bottom: none; }
+    .lang-option:active { background: var(--card-hover); }
+    
+    .menu-divider {
+      height: 4px;
+      background: var(--divider);
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px 16px 130px;
+    }
+
+    header {
+      text-align: center;
+      margin: 35px 0 25px;
+      min-height: 80px;
+    }
+
+    .logo-animate {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.3s var(--spring);
+    }
+
+    /* Эффект песка */
+    .sand-letter {
+      display: inline-block;
+      transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, -0.6), opacity 1s ease, filter 1s ease;
+      transform-origin: bottom center;
+    }
+    .sand-letter.crumble {
+      transform: translateY(110px) rotate(var(--rot)) scale(0.4);
+      opacity: 0;
+      filter: blur(6px);
+    }
+
+    /* Таймер */
+    #countdown-timer {
+      display: none;
+      animation: fadeIn 0.6s var(--spring) forwards;
+      cursor: pointer;
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      transition: transform 0.3s;
+    }
+    #countdown-timer:active { transform: scale(0.97); }
+
+    /* Панель информации о мастерской */
+    #store-info-menu {
+      display: none;
+      animation: fadeIn 0.6s var(--spring) forwards;
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      padding: 24px;
+      border-radius: 28px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      text-align: left;
+    }
+    #store-info-menu h3 { font-size: 19px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.02em; }
+    #store-info-menu p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; }
+    #store-info-menu strong { color: var(--text-main); font-weight: 600; }
+    
+    .btn-return {
+      width: 100%;
+      background: linear-gradient(135deg, var(--ios-green), #248a3d);
+      color: white;
+      padding: 16px;
+      border-radius: 18px;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+      box-shadow: 0 8px 20px rgba(48, 209, 88, 0.25);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-return:active { transform: scale(0.97); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-14px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    #header-subtitle { color: var(--text-muted); font-weight: 600; font-size: 15px; margin-top: 8px; letter-spacing: -0.01em; }
+
+    .widget-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
+      border-radius: 26px;
+      margin-bottom: 20px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      overflow: hidden;
+      transition: transform 0.4s var(--spring), background-color 0.3s;
+    }
+    .widget-card:active { transform: scale(0.97); }
+
+    /* Праздничный виджет */
+    .holiday-widget {
+      display: none;
+      align-items: center;
+      position: relative;
+      padding: 20px 24px;
+      gap: 16px;
+    }
+    .holiday-icon { font-size: 38px; z-index: 1; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+    .holiday-text { z-index: 1; }
+    .holiday-text h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+    .holiday-text p { font-size: 14px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+    .ribbon-stripe {
+      display: none;
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 14px;
+      background: repeating-linear-gradient(-45deg, #ff6a00, #ff6a00 10px, #111111 10px, #111111 20px);
+    }
+
+    /* Адресный виджет */
+    .address-widget {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .icon-map {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, var(--ios-blue), #0056b3);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: white; flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(10, 132, 255, 0.3);
+    }
+    .address-info h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+    .address-info p { font-size: 13px; color: var(--text-muted); margin-top: 1px; }
+
+    /* Ограничители для скролла */
+    .section-anchor { scroll-margin-top: 76px; }
+    .section-title { font-size: 21px; font-weight: 800; margin: 24px 0 16px 8px; letter-spacing: -0.02em; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .service-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
+      padding: 22px;
+      border-radius: 26px;
+      border: 1px solid var(--glass-border);
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 155px;
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      transition: transform 0.4s var(--spring), background-color 0.3s;
+    }
+    .service-card:active { transform: scale(0.94); }
+    .service-card span { font-size: 34px; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+    .service-name { font-weight: 700; font-size: 14px; line-height: 1.3; letter-spacing: -0.01em; }
+    .service-price { font-weight: 800; font-size: 19px; color: var(--ios-green); margin-top: 6px; letter-spacing: -0.02em; }
+
+    .ios-list {
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
+      border-radius: 26px;
+      margin-bottom: 24px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), var(--glass-shadow);
+      overflow: hidden;
+    }
+    .list-item {
+      padding: 18px 22px;
+      display: flex; align-items: center; gap: 16px;
+      text-decoration: none; color: inherit;
+      border-bottom: 1px solid var(--divider);
+      cursor: pointer;
+      width: 100%; background: none; border-left: none; border-right: none; border-top: none;
+      text-align: left;
+      transition: background-color 0.2s;
+    }
+    .list-item:active { background: var(--card-hover); }
+    .list-item:first-child { border-radius: 26px 26px 0 0; }
+    .list-item:last-child { border-bottom: none; border-radius: 0 0 26px 26px; }
+    
+    .item-icon {
+      width: 42px; height: 42px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: white; flex-shrink: 0;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+    .item-content { flex: 1; }
+    .item-title { font-weight: 700; font-size: 15px; margin-bottom: 1px; letter-spacing: -0.01em; }
+    .item-subtitle { font-size: 13px; color: var(--text-muted); }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+      border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.05);
+      padding: 4px;
+    }
+    .photo-grid img { 
+      width: 100%; 
+      aspect-ratio: 1; 
+      object-fit: cover; 
+      border-radius: 14px;
+      transition: transform 0.4s ease;
+    }
+    .photo-grid img:active { transform: scale(0.96); }
+
+    .bottom-nav-wrapper {
+      position: fixed;
+      bottom: 28px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .bottom-glass-nav {
+      pointer-events: auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(34px) saturate(220%);
+      -webkit-backdrop-filter: blur(34px) saturate(220%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), 0 16px 45px rgba(0,0,0,0.25);
+      border-radius: 40px;
+      display: flex;
+      padding: 6px;
+      gap: 10px;
+      transition: all 0.4s var(--spring);
+    }
+
+    .nav-btn {
+      width: 52px; 
+      height: 52px;
+      border-radius: 26px; 
+      background: rgba(120, 120, 128, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.05);
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.4s var(--spring);
+    }
+
+    .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; transition: stroke 0.3s, transform 0.3s; }
+    
+    .nav-btn.active {
+      background: var(--text-main);
+      color: var(--mesh-1);
+      transform: scale(1.12);
+      border-color: transparent;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+    
+    .nav-btn.active svg { stroke: var(--mesh-1); transform: scale(1.05); }
+    .nav-btn:hover:not(.active) { background: rgba(120, 120, 128, 0.15); transform: translateY(-4px); }
+    .nav-btn:active { transform: scale(0.92); }
+
+    /* Секретное меню отладки праздников */
+    #debug-menu {
+      display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+      background: var(--glass-bg); backdrop-filter: blur(30px); padding: 18px;
+      border-radius: 24px; z-index: 10000; border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inset), var(--glass-shadow); width: 92%; max-width: 360px; text-align: center;
+      animation: fadeIn 0.4s var(--spring);
+    }
+    .debug-btn {
+      background: var(--ios-blue); color: white; border: none; padding: 10px 14px;
+      border-radius: 14px; font-size: 13px; cursor: pointer; margin: 4px; font-weight: 700;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .debug-btn:active { transform: scale(0.92); }
+    .debug-btn.reset { background: var(--ios-red); }
+
+  </style>
+</head>
+<body id="top">
+
+  <div class="mesh-background"></div>
+  
+  <!-- Летние волны -->
+  <div class="summer-waves-bg" id="summer-waves">
+    <div class="summer-wave"></div>
+    <div class="summer-wave"></div>
+    <div class="summer-wave"></div>
+  </div>
+
+  <div id="particles-container"></div>
+
+  <!-- Георгиевские ленты на фоне -->
+  <div class="ribbons-bg" id="ribbons-bg">
+    <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <g stroke-linecap="square" opacity="0.6">
+        <path d="M-100,100 C300,50 600,250 1200,50" stroke="#1c1c1e" stroke-width="40" fill="none" />
+        <path d="M-100,100 C300,50 600,250 1200,50" stroke="#ff7b00" stroke-width="24" fill="none" />
+        <path d="M-100,100 C300,50 600,250 1200,50" stroke="#1c1c1e" stroke-width="8" fill="none" />
+        <path d="M-100,700 C400,900 600,400 1200,600" stroke="#1c1c1e" stroke-width="50" fill="none" />
+        <path d="M-100,700 C400,900 600,400 1200,600" stroke="#ff7b00" stroke-width="30" fill="none" />
+        <path d="M-100,700 C400,900 600,400 1200,600" stroke="#1c1c1e" stroke-width="10" fill="none" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="top-bar">
+    <div class="island" id="dynamic-island">
+      <div class="dot" id="status-dot"></div>
+      <span id="status-text" data-i18n="status_loading">Определяем статус...</span>
+    </div>
+
+    <!-- Индикатор бета-версии -->
+    <div id="beta-badge">Beta</div>
+
+    <div class="lang-switcher">
+      <button class="lang-btn" onclick="toggleLangMenu()">
+        <span id="current-lang-icon">🇷🇺</span> <span id="current-lang-text">RU</span>
+      </button>
+      <div class="lang-menu" id="lang-menu">
+        <div class="lang-option" onclick="setLang('ru')"><span>🇷🇺</span> Русский</div>
+        <div class="lang-option" onclick="setLang('en')"><span>🇬🇧</span> English</div>
+        <div class="lang-option" onclick="setLang('kz')"><span>🇰🇿</span> Қазақша</div>
+        <div class="menu-divider"></div>
+        <div class="lang-option" onclick="toggleTheme()" id="theme-toggle-btn">
+          <span id="theme-icon">🌙</span> <span id="theme-text" data-i18n="theme_dark">Тёмная тема</span>
+        </div>
+        <div class="lang-option" onclick="showVacationMessage()">
+          <span>📢</span> <span data-i18n="view_message">Посмотреть сообщение</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header id="header-section" class="section-anchor">
+      <h1 class="logo-animate" id="main-title" onclick="handleTitleClick()">АРТС&КРАФТИНГ</h1>
+      
+      <div id="countdown-timer"></div>
+      
+      <div id="store-info-menu">
+        <h3 data-i18n="menu_info">Информация о магазине</h3>
+        <p><strong data-i18n="menu_founded">Основан:</strong> <span data-i18n="menu_date">22 февраля 2022 г. в 12:08</span></p>
+        <p><strong data-i18n="menu_history">История:</strong> <span data-i18n="menu_history_text">Был создан на 2 ряду напротив "Принт плюс", и потом был перекинут на второй ряд около фотомагазина Kodak.</span></p>
+        <p><strong data-i18n="menu_manager">Управляющая:</strong> <span data-i18n="menu_manager_name">Ксения Бондаренко Сергеевна</span></p>
+        <button class="btn-return" onclick="resetToTitle()" data-i18n="menu_back">Вернуться назад</button>
+      </div>
+
+      <p id="header-subtitle" data-i18n="subtitle">Ремонт одежды — честно и в срок</p>
+    </header>
+
+    <div class="widget-card holiday-widget" id="holiday-widget">
+      <div class="ribbon-stripe" id="holiday-ribbon"></div>
+      <div class="holiday-icon" id="holiday-icon"></div>
+      <div class="holiday-text">
+        <h3 id="holiday-title"></h3>
+        <p id="holiday-text"></p>
+      </div>
+    </div>
+
+    <a href="https://yandex.ru/maps/?text=Тамбов+Мичуринская+141" class="widget-card address-widget">
+      <div class="icon-map">📍</div>
+      <div class="address-info">
+        <h3 data-i18n="address_city">г. Тамбов, ул. Мичуринская 141</h3>
+        <p data-i18n="address_desc">Транзит, 2 ряд</p>
+      </div>
+    </a>
+
+    <h2 class="section-title section-anchor" id="services-section" data-i18n="services_title">Что мы делаем</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <span>⚙️</span>
+        <div>
+          <div class="service-name" data-i18n="srv1_name">Замена бегунка</div>
+          <div class="service-price"><span data-i18n="from">от</span> 150₽</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <span>🪡</span>
+        <div>
+          <div class="service-name" data-i18n="srv2_name">Замена молнии</div>
+          <div class="service-price"><span data-i18n="from">от</span> 450₽</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <span>🧥</span>
+        <div>
+          <div class="service-name" data-i18n="srv3_name">Ремонт кожи и меха</div>
+          <div class="service-price"><span data-i18n="from">от</span> 500₽</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <span>📐</span>
+        <div>
+          <div class="service-name" data-i18n="srv4_name">Подшив брюк/джинс</div>
+          <div class="service-price"><span data-i18n="from">от</span> 400₽</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title section-anchor" id="contacts-section" data-i18n="contacts_title">Связь с мастером</h2>
+    <div class="ios-list">
+      <a href="tel:89027246061" class="list-item">
+        <div class="item-icon" style="background: rgba(48, 209, 88, 0.12); color: var(--ios-green);">📞</div>
+        <div class="item-content">
+          <div class="item-title" data-i18n="phone">Телефон</div>
+          <div style="color: var(--text-muted); font-size: 13.5px;">+7 (902) 724-60-61</div>
+        </div>
+      </a>
+      <a href="https://t.me/ARTSANDCRAFTING" target="_blank" class="list-item">
+        <div class="item-icon" style="background: rgba(10, 132, 255, 0.12); color: var(--ios-blue);">✈️</div>
+        <div class="item-content">
+          <div class="item-title" data-i18n="tg_title">Telegram канал</div>
+          <div class="item-subtitle" data-i18n="tg_desc">Наши новости</div>
+        </div>
+      </a>
+      <a href="https://max.ru/join/6vA9eQ-0nmP55CTnB5MfnYQ4zmW253WY_fukBZuK5lU" target="_blank" class="list-item">
+        <div class="item-icon" style="background: rgba(191, 90, 242, 0.12); color: #bf5af2;">🔗</div>
+        <div class="item-content">
+          <div class="item-title" data-i18n="max_title">MAX канал</div>
+          <div class="item-subtitle" data-i18n="max_desc">Присоединиться</div>
+        </div>
+      </a>
+    </div>
+
+    <h2 class="section-title section-anchor" id="goods-section" data-i18n="goods_title">Наш товар, который можно купить:</h2>
+    <div class="photo-grid">
+      <img src="https://i.postimg.cc/0zRYN9T3/image.jpg" alt="Товар 1">
+      <img src="https://i.postimg.cc/jw5N12fd/image.jpg" alt="Товар 2">
+      <img src="https://i.postimg.cc/300GKqn3/image.jpg" alt="Товар 3">
+      <img src="https://i.postimg.cc/Rq2fPMZn/image.jpg" alt="Товар 4">
+      <img src="https://i.postimg.cc/Lq4Zq5NW/image.jpg" alt="Товар 5">
+      <img src="https://i.postimg.cc/VrdrRTyD/image.jpg" alt="Товар 6">
+      <img src="https://i.postimg.cc/6T444DLS/image.jpg" alt="Товар 7">
+      <img src="https://i.postimg.cc/zy8yM3Z5/image.jpg" alt="Товар 8">
+      <img src="https://i.postimg.cc/tZKTz4t8/image.jpg" alt="Товар 9">
+    </div>
+
+    <footer style="margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 13px;" data-i18n="footer">
+      АРТС&КРАФТИНГ • Тамбов • Мичуринская 141
+    </footer>
+  </div>
+
+  <!-- УМНАЯ НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+  <div class="bottom-nav-wrapper">
+    <div class="bottom-glass-nav" id="smart-nav">
+      <a href="#top" class="nav-btn active" data-target="header-section" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+      </a>
+      <a href="#services-section" class="nav-btn" data-target="services-section" aria-label="Услуги">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle>
+          <line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+        </svg>
+      </a>
+      <a href="#contacts-section" class="nav-btn" data-target="contacts-section" aria-label="Контакты">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+      <a href="#goods-section" class="nav-btn" data-target="goods-section" aria-label="Товары">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div id="vacation-overlay" aria-hidden="true">
+    <div id="vacation-modal" role="dialog" aria-modal="true" aria-labelledby="vacation-title">
+      <h2 id="vacation-title">🏖 Отпуск</h2>
+      <p id="vacation-text">
+        Уважаемые клиенты!<br><br>
+        С 06.07.2026г по 19.07.2026г, отдел не работает!<br><br>
+        Отпуск 🏖<br><br>
+        С радостью ждём вас с 20.07.2026г
+      </p>
+      <span class="vacation-sub" id="vacation-subtext" data-i18n="vacation_sub">Сообщение показывается только один раз для каждого устройства. Его можно открыть снова через меню языка и темы.</span>
+      <button type="button" onclick="closeVacationMessage()" id="vacation-close-btn" data-i18n="vacation_close">Понятно</button>
+    </div>
+  </div>
+
+  <!-- Секретный отладочный пульт -->
+  <div id="debug-menu">
+    <h4 style="margin-bottom:12px; font-size: 14px; color: var(--text-main); font-weight: 800;">Режим тестирования эффектов 🕵️‍♂️</h4>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 4px;">
+      <button class="debug-btn" onclick="testHoliday('ny')">Новый Год ❄️</button>
+      <button class="debug-btn" onclick="testHoliday('may1')">1 Мая 🌸</button>
+      <button class="debug-btn" onclick="testHoliday('may9')">9 Мая 🎗</button>
+      <button class="debug-btn" onclick="testHoliday('bday')">ДР Магазина 🎁</button>
+      <button class="debug-btn" onclick="testHoliday('summer')">Лето 🌊</button>
+      <button class="debug-btn" onclick="testHoliday('vacation_force')">Отпуск 🏖</button>
+      <button class="debug-btn reset" onclick="testHoliday('reset')">Сбросить</button>
+    </div>
+  </div>
+
+  <script>
+    const dict = {
+      ru: {
+        subtitle: "Ремонт одежды — честно и в срок",
+        address_city: "г. Тамбов, ул. Мичуринская 141",
+        address_desc: "Транзит, 2 ряд",
+        services_title: "Что мы делаем",
+        srv1_name: "Замена бегунка",
+        srv2_name: "Замена молнии",
+        srv3_name: "Ремонт кожи и меха",
+        srv4_name: "Подшив брюк/джинс",
+        from: "от",
+        contacts_title: "Связь с мастером",
+        phone: "Телефон",
+        tg_title: "Telegram канал",
+        tg_desc: "Наши новости",
+        max_title: "MAX канал",
+        max_desc: "Присоединиться",
+        goods_title: "Наш товар, который можно купить:",
+        footer: "АРТС&КРАФТИНГ • Тамбов • Мичуринская 141",
+        status_loading: "Определяем статус...",
+        status_open: "Мастерская работает",
+        status_closed_until: "Ждем вас с 9:00",
+        status_weekend: "Сегодня выходной",
+        status_short: "Сокращенный день до 15:00",
+        status_closed_tmr: "Закрыто до завтра",
+        status_ny: "Новогодние каникулы",
+        status_victory: "С Днем Победы! (Выходной)",
+        status_vacation: "Отпуск",
+        timer_open: "Мы открыты!",
+        timer_close_until: "До закрытия:",
+        timer_until: "До открытия:",
+        timer_click: "(нажмите еще раз)",
+        timer_d: "дн", timer_h: "ч", timer_m: "мин", timer_s: "сек",
+        menu_info: "Информация о магазине",
+        menu_founded: "Основан:", menu_date: "22 февраля 2022 г. в 12:08",
+        menu_history: "История:", menu_history_text: "Был создан на 2 ряду напротив 'Принт плюс', и потом был перекинут на второй ряд около фотомагазина Kodak.",
+        menu_manager: "Управляющая:", menu_manager_name: "Ксения Бондаренко Сергеевна",
+        menu_back: "Вернуться назад",
+        theme_dark: "Тёмная тема",
+        theme_light: "Светлая тема",
+        view_message: "Посмотреть сообщение",
+        vacation_sub: "Сообщение показывается только один раз для каждого устройства. Его можно открыть снова через меню языка и темы.",
+        vacation_close: "Понятно"
+      },
+      en: {
+        subtitle: "Clothing repair — honest and on time",
+        address_city: "Tambov, Michurinskaya 141",
+        address_desc: "Transit, 2nd row",
+        services_title: "What we do",
+        srv1_name: "Slider replacement",
+        srv2_name: "Zipper replacement",
+        srv3_name: "Leather & fur repair",
+        srv4_name: "Pants/jeans hemming",
+        from: "from",
+        contacts_title: "Contact the master",
+        phone: "Phone",
+        tg_title: "Telegram channel",
+        tg_desc: "Our news",
+        max_title: "MAX channel",
+        max_desc: "Join us",
+        goods_title: "Our goods available for purchase:",
+        footer: "ARTS&CRAFTING • Tambov • Michurinskaya 141",
+        status_loading: "Checking status...",
+        status_open: "Workshop is open",
+        status_closed_until: "Waiting for you from 9:00",
+        status_weekend: "Closed today",
+        status_short: "Short day until 15:00",
+        status_closed_tmr: "Closed until tomorrow",
+        status_ny: "New Year holidays",
+        status_victory: "Happy Victory Day! (Closed)",
+        status_vacation: "Vacation",
+        timer_open: "We are open!",
+        timer_close_until: "Closing in:",
+        timer_until: "Opening in:",
+        timer_click: "(tap again)",
+        timer_d: "d", timer_h: "h", timer_m: "min", timer_s: "sec",
+        menu_info: "Store Information",
+        menu_founded: "Founded:", menu_date: "February 22, 2022 at 12:08",
+        menu_history: "History:", menu_history_text: "Founded in the 2nd row opposite 'Print Plus', then moved to the 2nd row near Kodak photo store.",
+        menu_manager: "Manager:", menu_manager_name: "Ksenia Bondarenko Sergeevna",
+        menu_back: "Go back",
+        theme_dark: "Dark Theme",
+        theme_light: "Light Theme",
+        view_message: "View message"
+      },
+      kz: {
+        subtitle: "Киім жөндеу — адал және уақытында",
+        address_city: "Тамбов қ., Мичуринская 141",
+        address_desc: "Транзит СО, 2-қатар",
+        services_title: "Біз не істейміз",
+        srv1_name: "Жүгіртпені ауыстыру",
+        srv2_name: "Сыдырманы ауыстыру",
+        srv3_name: "Былғары және үлбірді жөндеу",
+        srv4_name: "Шалбар/джинсы тігу",
+        from: "бастап",
+        contacts_title: "Шебермен байланыс",
+        phone: "Телефон",
+        tg_title: "Telegram арнасы",
+        tg_desc: "Біздің жаңалықтар",
+        max_title: "MAX арнасы",
+        max_desc: "Қосылу",
+        goods_title: "Сатып алуға болатын біздің тауар:",
+        footer: "АРТС&КРАФТИНГ • Тамбов • Мичуринская 141",
+        status_loading: "Күйді тексеру...",
+        status_open: "Шеберхана ашық",
+        status_closed_until: "Сізді 9:00-ден күтеміз",
+        status_weekend: "Бүгін демалыс",
+        status_short: "15:00-ге дейін қысқартылған күн",
+        status_closed_tmr: "Ертеңге дейін жабық",
+        status_ny: "Жаңа жылдық демалыс",
+        status_victory: "Жеңіс күнімен! (Демалыс)",
+        status_vacation: "Демалыс",
+        timer_open: "Біз ашықпыз!",
+        timer_close_until: "Жабылуына:",
+        timer_until: "Ашылуына:",
+        timer_click: "(тағы басыңыз)",
+        timer_d: "күн", timer_h: "сағ", timer_m: "мин", timer_s: "сек",
+        menu_info: "Дүкен туралы ақпарат",
+        menu_founded: "Құрылған:", menu_date: "22 ақпан 2022 ж. 12:08",
+        menu_history: "Тарихы:", menu_history_text: "'Принт плюс' қарама-қарсы 2-ші қатарда құрылған, содан кейін Kodak дүкенінің жанындағы 2-ші қатарға ауыстырылған.",
+        menu_manager: "Басқарушы:", menu_manager_name: "Ксения Бондаренко Сергеевна",
+        menu_back: "Артқа оралу",
+        theme_dark: "Қараңғы тақырып",
+        theme_light: "Жарық тақырып",
+        view_message: "Хабарламаны көру",
+        vacation_sub: "Хабарлама әр құрылғыда тек бір рет көрсетіледі. Оны тіл мен тақырып мәзірінен қайта ашуға болады.",
+        vacation_close: "Түсінікті"
+      }
+    };
+
+    let currentLang = 'ru';
+    let isDarkMode = false;
+
+    function toggleLangMenu() {
+      document.getElementById('lang-menu').classList.toggle('open');
+    }
+
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-theme', isDarkMode);
+      
+      const t = dict[currentLang];
+      document.getElementById('theme-icon').innerText = isDarkMode ? '☀️' : '🌙';
+      document.getElementById('theme-text').innerText = isDarkMode ? t.theme_light : t.theme_dark;
+      document.getElementById('lang-menu').classList.remove('open');
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      const icons = { ru: "🇷🇺", en: "🇬🇧", kz: "🇰🇿" };
+      const texts = { ru: "RU", en: "EN", kz: "KZ" };
+
+      document.getElementById('current-lang-icon').innerText = icons[lang];
+      document.getElementById('current-lang-text').innerText = texts[lang];
+      document.getElementById('lang-menu').classList.remove('open');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[lang][key]) el.innerText = dict[lang][key];
+      });
+
+      document.getElementById('theme-text').innerText = isDarkMode ? dict[lang].theme_light : dict[lang].theme_dark;
+      document.getElementById('vacation-title').innerText = lang === 'en' ? '🏖 Vacation' : (lang === 'kz' ? '🏖 Демалыс' : '🏖 Отпуск');
+      document.getElementById('vacation-subtext').innerText = dict[lang].vacation_sub || document.getElementById('vacation-subtext').innerText;
+      document.getElementById('vacation-close-btn').innerText = dict[lang].vacation_close || 'Понятно';
+      updateHolidaysAndStatus();
+    }
+
+    document.addEventListener('click', (e) => {
+      const switcher = document.querySelector('.lang-switcher');
+      if (switcher && !switcher.contains(e.target)) {
+        document.getElementById('lang-menu').classList.remove('open');
+      }
+    });
+
+    const VACATION_MESSAGE_KEY = 'arts_crafting_vacation_notice_2026_v1';
+
+    function applyVacationOpenState(isOpen) {
+      const overlay = document.getElementById('vacation-overlay');
+      const body = document.body;
+      if (isOpen) {
+        overlay.style.display = 'flex';
+        overlay.setAttribute('aria-hidden', 'false');
+        body.classList.add('message-open');
+      } else {
+        overlay.style.display = 'none';
+        overlay.setAttribute('aria-hidden', 'true');
+        body.classList.remove('message-open');
+      }
+    }
+
+    function showVacationMessage() {
+      applyVacationOpenState(true);
+      document.getElementById('lang-menu').classList.remove('open');
+    }
+
+    function closeVacationMessage() {
+      localStorage.setItem(VACATION_MESSAGE_KEY, 'seen');
+      applyVacationOpenState(false);
+    }
+
+    function initVacationMessage() {
+      const seen = localStorage.getItem(VACATION_MESSAGE_KEY) === 'seen';
+      if (!seen) {
+        setTimeout(showVacationMessage, 450);
+      } else {
+        applyVacationOpenState(false);
+      }
+    }
+
+    const sections = document.querySelectorAll('.section-anchor');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          const currentId = entry.target.id;
+          document.querySelectorAll('.nav-btn').forEach(btn => {
+            if (btn.getAttribute('data-target') === currentId) {
+              btn.classList.add('active'); 
+            } else {
+              btn.classList.remove('active'); 
+            }
+          });
+        }
+      });
+    }, { threshold: [0.5] });
+
+    sections.forEach(sec => navObserver.observe(sec));
+
+    window.globalIsOpen = false;
+    window.globalIsVacation = false;
+    let titleDissolved = false;
+    let timerInterval;
+
+    function getTargetTime(mskNow, isOpen) {
+      let target = new Date(mskNow.getTime());
+      const month = target.getMonth();
+      const date = target.getDate();
+      const day = target.getDay();
+
+      if (isOpen) {
+        if (month === 4 && date === 9) target.setHours(15, 0, 0, 0);
+        else if (day >= 1 && day <= 5) target.setHours(18, 0, 0, 0);
+        else if (day === 6) target.setHours(17, 0, 0, 0);
+        return { time: target, type: 'close' };
+      } else {
+        for (let i = 0; i < 30; i++) {
+          let testDay = new Date(mskNow.getTime());
+          if (i > 0) {
+            testDay.setDate(testDay.getDate() + i);
+            testDay.setHours(0, 0, 0, 0); 
+          }
+          const m = testDay.getMonth();
+          const d = testDay.getDate();
+          const w = testDay.getDay();
+
+          if (((m === 11 && d === 31) || (m === 0 && d >= 1 && d <= 4))) continue; 
+          if (w === 0) continue; 
+
+          let openHour = (w === 6) ? 10 : 9; 
+          testDay.setHours(openHour, 0, 0, 0);
+
+          if (testDay.getTime() > mskNow.getTime()) {
+            return { time: testDay, type: 'open' };
+          }
+        }
+      }
+      return null;
+    }
+
+    function handleTitleClick() {
+      if (titleDissolved) return; 
+      titleDissolved = true;
+      
+      const title = document.getElementById('main-title');
+      const subtitle = document.getElementById('header-subtitle');
+      const text = title.innerText;
+      title.innerHTML = ''; 
+      subtitle.style.display = 'none';
+
+      for (let i = 0; i < text.length; i++) {
+        let span = document.createElement('span');
+        span.innerText = text[i] === ' ' ? '\u00A0' : text[i];
+        span.className = 'sand-letter';
+        let rot = (Math.random() - 0.5) * 80; 
+        let delay = Math.random() * 0.4; 
+        span.style.setProperty('--rot', rot + 'deg');
+        span.style.transitionDelay = delay + 's';
+        title.appendChild(span);
+      }
+
+      requestAnimationFrame(() => {
+        const letters = title.querySelectorAll('.sand-letter');
+        letters.forEach(l => l.classList.add('crumble'));
+      });
+
+      setTimeout(() => {
+        title.style.display = 'none';
+        
+        // В период отпуска (или если форсирован отпуск в тесте) таймер не открывается
+        if (window.globalIsVacation) {
+           document.getElementById('store-info-menu').style.display = 'block';
+        } else {
+           const now = new Date();
+           const mskNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+           const targetObj = getTargetTime(mskNow, window.globalIsOpen);
+           if (targetObj) startTimer(targetObj.time, targetObj.type);
+        }
+      }, 1200);
+    }
+
+    function startTimer(targetTimeMsk, type) {
+      const timerEl = document.getElementById('countdown-timer');
+      timerEl.style.display = 'block';
+      timerEl.onclick = showMiniMenu;
+
+      function updateTimer() {
+        const now = new Date();
+        const mskNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+        const diff = targetTimeMsk.getTime() - mskNow.getTime();
+        const t = dict[currentLang];
+
+        if (diff <= 0) {
+           timerEl.innerHTML = `<div style="font-size: 24px; font-weight: 800; color: var(--ios-green);">Статус обновлен!</div>`;
+           clearInterval(timerInterval);
+           setTimeout(() => location.reload(), 2000); 
+           return;
+        }
+
+        const hoursLeft = diff / (1000 * 60 * 60);
+        let timerColor = '';
+
+        if (hoursLeft >= 15) {
+          timerColor = 'var(--ios-green)'; 
+        } else if (hoursLeft <= 0) {
+          timerColor = 'var(--ios-red)'; 
+        } else {
+          const ratio = hoursLeft / 15; 
+          const r = Math.round(255 - (255 - 48) * ratio);
+          const g = Math.round(69 + (209 - 69) * ratio);
+          const b = Math.round(58 + (88 - 58) * ratio);
+          timerColor = `rgb(${r}, ${g}, ${b})`;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        let timeStr = "";
+        if (d > 0) timeStr += d + " " + t.timer_d + " ";
+        timeStr += String(h).padStart(2, '0') + " " + t.timer_h + " ";
+        timeStr += String(m).padStart(2, '0') + " " + t.timer_m + " ";
+        timeStr += String(s).padStart(2, '0') + " " + t.timer_s;
+
+        const headingText = (type === 'close') ? t.timer_close_until : t.timer_until;
+
+        timerEl.innerHTML = `
+          <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 5px;">${headingText}</div>
+          <div style="font-size: 26px; font-weight: 800; color: ${timerColor};">${timeStr}</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">${t.timer_click}</div>
+        `;
+      }
+      
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function showMiniMenu() {
+      clearInterval(timerInterval);
+      document.getElementById('countdown-timer').style.display = 'none';
+      const menu = document.getElementById('store-info-menu');
+      menu.style.display = 'block';
+    }
+
+    function resetToTitle() {
+      document.getElementById('store-info-menu').style.display = 'none';
+      const title = document.getElementById('main-title');
+      title.innerHTML = 'АРТС&КРАФТИНГ'; 
+      title.style.display = 'inline-block';
+      title.style.opacity = '1';
+      title.style.transform = 'none';
+      document.getElementById('header-subtitle').style.display = 'block'; 
+      titleDissolved = false; 
+    }
+
+    let forcedHoliday = null;
+
+    function testHoliday(type) {
+      forcedHoliday = type;
+      updateHolidaysAndStatus();
+    }
+
+    function updateHolidaysAndStatus() {
+      const now = new Date();
+      const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+      const t = dict[currentLang]; 
+      
+      let month = msk.getMonth(); 
+      let date = msk.getDate();
+      let day = msk.getDay(); 
+      let hour = msk.getHours();
+      let min = msk.getMinutes();
+
+      // Обработка симуляции из тест-панели
+      if (forcedHoliday) {
+        if (forcedHoliday === 'ny') { month = 11; date = 30; }
+        else if (forcedHoliday === 'may1') { month = 4; date = 1; }
+        else if (forcedHoliday === 'may9') { month = 4; date = 9; }
+        else if (forcedHoliday === 'bday') { month = 1; date = 22; }
+        else if (forcedHoliday === 'summer') { month = 6; date = 15; }
+        else if (forcedHoliday === 'vacation_force') { month = 6; date = 10; }
+      }
+
+      const time = hour + min/60;
+
+      const wWidget = document.getElementById('holiday-widget');
+      const wTitle = document.getElementById('holiday-title');
+      const wText = document.getElementById('holiday-text');
+      const wIcon = document.getElementById('holiday-icon');
+      const wRibbon = document.getElementById('holiday-ribbon');
+      const bgRibbons = document.getElementById('ribbons-bg');
+      const waves = document.getElementById('summer-waves');
+
+      wWidget.style.display = 'none';
+      wRibbon.style.display = 'none';
+      bgRibbons.style.display = 'none';
+      wIcon.style.display = 'block';
+      let particleType = null;
+      let isHolidayClosed = false;
+      let isVacation = false;
+
+      // Летние волны (с 1 июня по 1 сентября: июнь(5), июль(6), август(7))
+      const isSummer = (month >= 5 && month <= 7);
+      if(waves) waves.style.display = isSummer ? 'block' : 'none';
+
+      // 1. Отпуск (6-19 июля в 2026 году)
+      if ((month === 6 && date >= 6 && date <= 19) || forcedHoliday === 'vacation_force') {
+        isVacation = true;
+      }
+
+      // 2. 9 Мая (с 3 по 10 мая)
+      if (month === 4 && date >= 3 && date <= 10) {
+        wWidget.style.display = 'flex';
+        bgRibbons.style.display = 'block';
+        wRibbon.style.display = 'block';
+        wIcon.style.display = 'none';
+        wText.innerText = currentLang === 'ru' ? 'С Днем Великой Победы. Мирного неба над головой!' : (currentLang === 'en' ? 'Happy Victory Day. Peaceful sky above!' : 'Жеңіс күні құтты болсын. Аспанымыз ашық болсын!');
+        
+        if (date < 9) wTitle.innerText = currentLang === 'ru' ? 'С наступающим 9 Мая!' : (currentLang === 'en' ? 'Upcoming May 9th!' : 'Келе жатқан 9 мамырмен!');
+        else wTitle.innerText = currentLang === 'ru' ? 'С 9 Мая!' : (currentLang === 'en' ? 'Happy May 9th!' : '9 мамыр құтты болсын!');
+      }
+      
+      // 3. Новый год (26 декабря - 14 января)
+      else if ((month === 11 && date >= 26) || (month === 0 && date <= 14)) {
+        wWidget.style.display = 'flex';
+        wIcon.innerText = '🎄';
+        wText.innerText = currentLang === 'ru' ? 'Желаем счастья, тепла и уюта в новом году!' : (currentLang === 'en' ? 'Wishing you happiness, warmth and comfort in the new year!' : 'Жаңа жылда бақыт, жылулық пен жайлылық тілейміз!');
+        
+        if (month === 11) wTitle.innerText = currentLang === 'ru' ? 'С наступающим Новым годом!' : (currentLang === 'en' ? 'Happy upcoming New Year!' : 'Келе жатқан Жаңа жылмен!');
+        else wTitle.innerText = currentLang === 'ru' ? 'С Новым годом!' : (currentLang === 'en' ? 'Happy New Year!' : 'Жаңа жыл құтты болсын!');
+
+        if (month === 0 && date === 1 && hour >= 0 && hour < 2) particleType = 'snow-gift';
+        else particleType = 'snow';
+
+        if ((month === 11 && date === 31) || (month === 0 && date >= 1 && date <= 4)) isHolidayClosed = true;
+      }
+      
+      // 4. 1 Мая
+      else if ((month === 3 && date === 30) || (month === 4 && date <= 2)) {
+        wWidget.style.display = 'flex';
+        wIcon.innerText = '🌸';
+        wText.innerText = currentLang === 'ru' ? 'Весеннего настроения, радости и успехов во всех делах!' : (currentLang === 'en' ? 'Spring mood, joy and success in all your endeavors!' : 'Көктемгі көңіл-күй, қуаныш пен барлық істеріңізге сәттілік тілейміз!');
+        particleType = 'flowers';
+        
+        if (month === 3 && date === 30) wTitle.innerText = currentLang === 'ru' ? 'С наступающим 1 Мая!' : (currentLang === 'en' ? 'Upcoming May 1st!' : 'Келе жатқан 1 мамырмен!');
+        else wTitle.innerText = currentLang === 'ru' ? 'С 1 Мая! Мир, Труд, Май!' : (currentLang === 'en' ? 'Happy May 1st! Peace, Labor, May!' : '1 мамырмен! Бейбітшілік, Еңбек, Мамыр!');
+      }
+      
+      // 5. День Рождения магазина
+      else if (month === 1 && date === 22) {
+        wWidget.style.display = 'flex';
+        wIcon.innerText = '🎂';
+        wTitle.innerText = currentLang === 'ru' ? 'С Днём Рождения магазина!' : (currentLang === 'en' ? 'Happy Store Birthday!' : 'Дүкеннің туған күнімен!');
+        wText.innerText = currentLang === 'ru' ? 'Сегодня мы празднуем еще один год работы. Спасибо, что вы с нами!' : (currentLang === 'en' ? 'Today we celebrate another year of work. Thank you for being with us!' : 'Бүгін біз тағы бір жыл жұмыс істегенімізді атап өтеміз. Бізбен бірге болғаныңызға рақмет!');
+        particleType = 'gifts';
+      }
+
+      createParticles(particleType);
+
+      let open = false;
+      let statusString = t.status_closed_tmr; 
+
+      if (isVacation) {
+        statusString = t.status_vacation;
+      } else if (isHolidayClosed) {
+        statusString = t.status_ny;
+      } else {
+        if (month === 4 && date === 9) {
+          if (time >= 9 && time < 15) open = true;
+          statusString = open ? t.status_short : t.status_closed_tmr;
+        } else {
+          if (day >= 1 && day <= 5) {
+            if (time >= 9 && time < 18) open = true;
+          } else if (day === 6) {
+            if (time >= 10 && time < 17) open = true;
+          }
+          statusString = open ? t.status_open : ((day === 0) ? t.status_weekend : t.status_closed_until);
+        }
+      }
+
+      window.globalIsOpen = open; 
+      window.globalIsVacation = isVacation;
+
+      const dot = document.getElementById('status-dot');
+      const label = document.getElementById('status-text');
+
+      if (isVacation) {
+        dot.className = "dot vacation";
+        label.innerText = statusString;
+      } else if (isHolidayClosed) {
+        dot.className = "dot holiday";
+        label.innerText = statusString;
+      } else if (open) {
+        dot.className = "dot active";
+        label.innerText = statusString;
+      } else {
+        dot.className = "dot";
+        label.innerText = statusString;
+      }
+    }
+
+    const contentObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.widget-card, .service-card, .ios-list, .photo-grid, .section-title').forEach(el => {
+      if (window.getComputedStyle(el).display !== 'none') {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(24px)";
+        el.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+        contentObserver.observe(el);
+      }
+    });
+
+    let islandClicks = 0;
+    const island = document.getElementById('dynamic-island');
+    if(island) {
+      island.addEventListener('click', () => {
+        islandClicks++;
+        if (islandClicks >= 5) {
+          document.getElementById('debug-menu').style.display = 'block';
+        }
+      });
+    }
+
+    setLang('ru'); 
+    initVacationMessage();
+    setInterval(updateHolidaysAndStatus, 30000);
+
+    document.getElementById('vacation-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'vacation-overlay') {
+        closeVacationMessage();
+      }
+    });
+  </script>
+</body>
+</html>
