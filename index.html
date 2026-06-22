@@ -5,51 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>АРТС&КРАФТИНГ | Ремонт одежды</title>
   <style>
+    /* Переменные Светлой темы - Чистый кристальный стиль */
     :root {
-      --ios-green: #30d158;
-      --ios-blue: #0a84ff;
-      --ios-yellow: #ffd60a;
-      --ios-red: #ff453a;
-      --spring: cubic-bezier(0.25, 1, 0.5, 1.2);
+      --ios-green: #248a3d;
+      --ios-blue: #007aff;
+      --ios-yellow: #ffcc00;
+      --ios-red: #ff3b30;
+      --spring: cubic-bezier(0.16, 1, 0.3, 1); /* Фирменный плавный Apple-выход */
       
-      /* Светлая тема - сочное размытое стекло */
-      --mesh-1: #eef2f3;
-      --mesh-2: #e0e7ff;
-      --mesh-3: #fdf2f8;
-      --mesh-4: #fef3c7;
+      --mesh-1: #f1f5f9;
+      --mesh-2: #e2e8f0;
+      --mesh-3: #f8fafc;
+      --mesh-4: #f1f5f9;
       
-      --glass-bg: rgba(255, 255, 255, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.5);
-      --glass-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.02);
+      --glass-bg: rgba(255, 255, 255, 0.35);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.04), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
       
       --text-main: #1c1c1e;
-      --text-muted: #6e6e73;
-      --divider: rgba(0, 0, 0, 0.06);
-      --card-hover: rgba(255, 255, 255, 0.7);
-      
-      --island-bg: rgba(28, 28, 30, 0.92);
-      --glow-intensity: 0 0 12px;
+      --text-muted: #8e8e93;
+      --divider: rgba(0, 0, 0, 0.04);
+      --card-hover: rgba(255, 255, 255, 0.5);
     }
 
-    /* Тёмная тема - глубокий космический стиль iOS 27 */
+    /* Переменные Тёмной темы - Глубокое космическое матовое стекло */
     body.dark-theme {
       --mesh-1: #09090b;
-      --mesh-2: #0f172a;
-      --mesh-3: #1e1b4b;
-      --mesh-4: #2e1065;
+      --mesh-2: #18181b;
+      --mesh-3: #09090b;
+      --mesh-4: #18181b;
       
-      --glass-bg: rgba(24, 24, 27, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.15);
-      --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(255,255,255,0.05);
+      --glass-bg: rgba(20, 20, 22, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.07);
+      --glass-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
       
       --text-main: #f4f4f5;
       --text-muted: #a1a1aa;
-      --divider: rgba(255, 255, 255, 0.08);
-      --card-hover: rgba(255, 255, 255, 0.03);
-      
-      --island-bg: rgba(10, 10, 12, 0.95);
+      --divider: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.02);
     }
 
     * {
@@ -57,7 +50,7 @@
       padding: 0;
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -65,35 +58,33 @@
     body {
       background-color: var(--mesh-1);
       color: var(--text-main);
-      line-height: 1.45;
+      line-height: 1.4;
       overflow-x: hidden;
-      transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+      transition: background-color 0.8s var(--spring), color 0.4s ease;
     }
 
-    /* Живой градиентный фон (Mesh Gradient) с улучшенным контрастом */
+    /* Живой благородный фон без резких свечений */
     .mesh-background {
       position: fixed;
       inset: 0;
       z-index: -4;
-      background: radial-gradient(circle at 10% 30%, var(--mesh-1), transparent 60%),
-                  radial-gradient(circle at 90% 20%, var(--mesh-2), transparent 60%),
-                  radial-gradient(circle at 85% 85%, var(--mesh-3), transparent 60%),
-                  radial-gradient(circle at 15% 80%, var(--mesh-4), transparent 60%);
-      filter: blur(70px);
-      animation: breathe 18s ease-in-out infinite alternate;
-      transition: all 0.6s ease;
+      background: radial-gradient(circle at 10% 20%, var(--mesh-2), transparent 40%),
+                  radial-gradient(circle at 90% 80%, var(--mesh-3), transparent 40%),
+                  radial-gradient(circle at 50% 50%, var(--mesh-1), transparent 50%);
+      filter: blur(50px);
+      animation: breathe 20s ease-in-out infinite alternate;
     }
 
     @keyframes breathe {
-      0% { transform: scale(1) translate(0, 0); }
-      100% { transform: scale(1.15) translate(2%, 3%) rotate(3deg); }
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08) translate(1%, 1%); }
     }
 
-    /* Летние переливающиеся волны с эффектом градиентного свечения */
+    /* Реалистичные бесшовные летние волны */
     .summer-waves-bg {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 380px;
+      height: 260px;
       z-index: -3;
       display: none;
       pointer-events: none;
@@ -102,29 +93,39 @@
 
     .summer-wave {
       position: absolute;
-      bottom: -10px; left: 0;
-      width: 200vw; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230a84ff" fill-opacity="0.2" d="M0,224L30,224C60,224,120,224,180,213.3C240,203,300,181,360,181.3C420,181,480,203,540,218.7C600,235,660,245,720,234.7C780,224,840,192,900,186.7C960,181,1020,203,1080,208C1140,213,1200,203,1260,181.3C1320,160,1380,128,1410,112L1440,96L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>') repeat-x;
+      bottom: 0; left: 0;
+      width: 200%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230a84ff" fill-opacity="0.12" d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,144C672,128,768,128,864,149.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
       background-size: 50% 100%;
-      animation: waveAnim 12s linear infinite;
-      filter: drop-shadow(0 0 15px rgba(10, 132, 255, 0.15));
+      animation: waveAnim 18s linear infinite;
+      will-change: transform;
     }
 
     .summer-wave:nth-child(2) {
-      bottom: -15px; opacity: 0.65;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd60a" fill-opacity="0.15" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,149.3C672,139,768,149,864,165.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-      animation: waveAnim 18s linear infinite reverse;
+      bottom: -10px; opacity: 0.8;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23bf5af2" fill-opacity="0.08" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,181.3C672,171,768,181,864,181.3C960,181,1056,171,1152,154.7C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      animation: waveAnim 24s linear infinite reverse;
     }
 
     .summer-wave:nth-child(3) {
-      bottom: -25px; opacity: 0.45;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23bf5af2" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,144C672,128,768,128,864,149.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-      animation: waveAnim 26s linear infinite;
+      bottom: -20px; opacity: 0.5;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd60a" fill-opacity="0.06" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,208C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      animation: waveAnim 32s linear infinite;
     }
 
     @keyframes waveAnim {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50vw); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Георгиевские ленты на фоне */
+    .ribbons-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2;
+      opacity: 0.4;
+      pointer-events: none;
+      display: none;
     }
 
     #particles-container {
@@ -140,97 +141,173 @@
       top: -50px;
       animation: fall linear infinite, sway ease-in-out infinite alternate;
       user-select: none;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+      will-change: transform, top;
     }
 
+    @keyframes fall {
+      0% { top: -10%; opacity: 0; }
+      10% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+    @keyframes sway {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(25px) rotate(45deg); }
+    }
+
+    /* Шапка с Динамическим Островом */
     .top-bar {
       position: sticky;
       top: 14px;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       padding: 0 16px;
       max-width: 532px;
       margin: 0 auto;
-      height: 48px;
+      pointer-events: none;
     }
 
+    /* Умный интерактивный Остров */
     .island {
-      background: var(--island-bg);
-      backdrop-filter: blur(28px) saturate(200%);
-      -webkit-backdrop-filter: blur(28px) saturate(200%);
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 30px;
+      pointer-events: auto;
+      background: rgba(20, 20, 22, 0.93);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 24px;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 0;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: -0.01em;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), inset 0 0.5px 1px rgba(255,255,255,0.3);
-      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 15px 35px -5px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.15) inset;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       cursor: pointer;
-      transition: transform 0.2s var(--spring);
-    }
-    .island:active { transform: scale(0.96); }
-
-    .dot { width: 9px; height: 9px; border-radius: 50%; background: #636366; transition: all 0.5s ease; }
-    .dot.active { 
-      background: var(--ios-green); 
-      box-shadow: var(--glow-intensity) var(--ios-green); 
-      animation: pulse 2s infinite; 
-    }
-    .dot.holiday { 
-      background: var(--ios-red); 
-      box-shadow: var(--glow-intensity) var(--ios-red); 
-    }
-    .dot.vacation { 
-      background: var(--ios-yellow); 
-      box-shadow: var(--glow-intensity) var(--ios-yellow); 
-      animation: pulse 2.5s infinite; 
+      width: auto;
+      min-width: 190px;
+      max-width: 320px;
+      transition: all 0.5s var(--spring);
+      overflow: hidden;
     }
 
-    @keyframes pulse { 
-      0%, 100% { opacity: 1; transform: scale(1); } 
-      50% { opacity: 0.65; transform: scale(1.15); } 
+    .island:active { transform: scale(0.97); }
+
+    .island-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
     }
 
-    /* Футуристичный Бета-значок */
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #555;
+      transition: all 0.4s ease;
+      flex-shrink: 0;
+    }
+    .dot.active { background: var(--ios-green); box-shadow: 0 0 8px var(--ios-green); animation: pulse 2s infinite; }
+    .dot.holiday { background: var(--ios-red); box-shadow: 0 0 8px var(--ios-red); }
+    .dot.vacation { background: var(--ios-yellow); box-shadow: 0 0 8px var(--ios-yellow); animation: pulse 2.5s infinite; }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.15); } }
+
+    /* Раздвижное тело Острова (Анимация через CSS Grid для идеальной плавности) */
+    .island-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s var(--spring), opacity 0.4s ease;
+      opacity: 0;
+      width: 100%;
+    }
+
+    .island-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .island-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 10px 0;
+    }
+
+    .island-date {
+      color: #929292;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .island-changelog-title {
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .island-changelog-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .island-changelog-list li {
+      font-size: 11.5px;
+      color: #d1d1d6;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* Состояние расширения */
+    .island.expanded {
+      border-radius: 28px;
+      padding: 14px 18px;
+      max-width: 360px;
+      width: 280px;
+    }
+
+    .island.expanded .island-body {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    /* Значок БЕТА (Стиль чистое стекло) */
     #beta-badge {
-      background: rgba(255, 159, 10, 0.12);
-      border: 1px solid rgba(255, 159, 10, 0.45);
-      color: #ff9f0a;
-      backdrop-filter: blur(12px);
-      padding: 5px 12px;
+      pointer-events: auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 4px 10px;
       border-radius: 12px;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(255, 159, 10, 0.15);
-      animation: betaPulse 2.5s infinite ease-in-out;
+      box-shadow: var(--glass-shadow);
       margin-left: auto;
-      margin-right: 12px;
+      margin-right: 8px;
+      align-self: center;
+      transition: all 0.5s var(--spring);
     }
 
-    @keyframes betaPulse {
-      0%, 100% { opacity: 0.85; transform: scale(1); box-shadow: 0 4px 12px rgba(255, 159, 10, 0.15); }
-      50% { opacity: 1; transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 159, 10, 0.3); }
-    }
-
-    /* Меню языков и темы */
-    .lang-switcher { position: relative; }
+    /* Переключатель языка и темы */
+    .lang-switcher { pointer-events: auto; position: relative; }
     
     .lang-btn {
       background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(190%);
-      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
-      box-shadow: var(--glass-inset), var(--glass-shadow);
-      padding: 8px 14px;
+      padding: 8px 12px;
       border-radius: 20px;
       font-weight: 700;
       font-size: 13px;
@@ -239,42 +316,42 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.2s var(--spring), background-color 0.3s;
+      transition: transform 0.2s var(--spring);
     }
-    .lang-btn:active { transform: scale(0.94); }
+    .lang-btn:active { transform: scale(0.95); }
 
     .lang-menu {
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(100% + 8px);
       right: 0;
       background: var(--glass-bg);
-      backdrop-filter: blur(34px) saturate(210%);
-      -webkit-backdrop-filter: blur(34px) saturate(210%);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       border: 1px solid var(--glass-border);
-      border-radius: 22px;
-      box-shadow: var(--glass-inset), var(--glass-shadow);
+      border-radius: 18px;
+      box-shadow: var(--glass-shadow);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-12px) scale(0.95);
-      transition: all 0.3s var(--spring);
+      transform: translateY(-10px);
+      transition: all 0.35s var(--spring);
       min-width: 170px;
     }
-    .lang-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+    .lang-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
     .lang-option {
-      padding: 13px 18px;
+      padding: 12px 16px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13.5px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       border-bottom: 1px solid var(--divider);
       color: var(--text-main);
-      transition: background-color 0.2s;
+      transition: background 0.2s;
     }
     .lang-option:last-child { border-bottom: none; }
     .lang-option:active { background: var(--card-hover); }
@@ -284,123 +361,120 @@
       background: var(--divider);
     }
 
+    /* Контейнер приложения */
     .container {
       max-width: 500px;
       margin: 0 auto;
-      padding: 24px 16px 130px;
+      padding: 20px 16px 120px;
     }
 
     header {
       text-align: center;
-      margin: 35px 0 25px;
+      margin: 30px 0;
       min-height: 80px;
     }
 
     .logo-animate {
-      font-size: 40px;
+      font-size: 38px;
       font-weight: 900;
-      letter-spacing: -1.5px;
-      background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+      color: var(--text-main);
       cursor: pointer;
       display: inline-block;
-      transition: transform 0.3s var(--spring);
     }
 
     /* Эффект песка */
     .sand-letter {
       display: inline-block;
-      transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, -0.6), opacity 1s ease, filter 1s ease;
+      transition: transform 1.2s cubic-bezier(0.36, 0, 0.66, -0.56), opacity 1s ease, filter 1s ease;
       transform-origin: bottom center;
     }
     .sand-letter.crumble {
-      transform: translateY(110px) rotate(var(--rot)) scale(0.4);
+      transform: translateY(80px) rotate(var(--rot)) scale(0.6);
       opacity: 0;
-      filter: blur(6px);
+      filter: blur(4px);
     }
 
     /* Таймер */
     #countdown-timer {
       display: none;
-      animation: fadeIn 0.6s var(--spring) forwards;
+      animation: fadeIn 0.8s ease forwards;
       cursor: pointer;
-      padding: 18px;
-      border-radius: 24px;
+      padding: 15px;
+      border-radius: 20px;
       background: var(--glass-bg);
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), var(--glass-shadow);
-      transition: transform 0.3s;
+      box-shadow: var(--glass-shadow);
+      transition: 0.3s;
     }
-    #countdown-timer:active { transform: scale(0.97); }
+    #countdown-timer:active { transform: scale(0.98); }
 
-    /* Панель информации о мастерской */
+    /* Сведения о магазине */
     #store-info-menu {
       display: none;
-      animation: fadeIn 0.6s var(--spring) forwards;
+      animation: fadeIn 0.5s ease forwards;
       background: var(--glass-bg);
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
-      padding: 24px;
-      border-radius: 28px;
+      backdrop-filter: blur(25px);
+      padding: 20px;
+      border-radius: 24px;
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), var(--glass-shadow);
+      box-shadow: var(--glass-shadow);
       text-align: left;
+      margin-top: -10px;
     }
-    #store-info-menu h3 { font-size: 19px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.02em; }
-    #store-info-menu p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; }
-    #store-info-menu strong { color: var(--text-main); font-weight: 600; }
+    #store-info-menu h3 { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+    #store-info-menu p { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.55; }
+    #store-info-menu strong { color: var(--text-main); }
     
     .btn-return {
       width: 100%;
-      background: linear-gradient(135deg, var(--ios-green), #248a3d);
+      background: var(--ios-green);
       color: white;
-      padding: 16px;
-      border-radius: 18px;
+      padding: 14px;
+      border-radius: 16px;
       border: none;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 12px;
-      box-shadow: 0 8px 20px rgba(48, 209, 88, 0.25);
-      transition: transform 0.2s, opacity 0.2s;
+      margin-top: 10px;
+      transition: transform 0.2s;
     }
-    .btn-return:active { transform: scale(0.97); }
+    .btn-return:active { transform: scale(0.98); }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-14px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    #header-subtitle { color: var(--text-muted); font-weight: 600; font-size: 15px; margin-top: 8px; letter-spacing: -0.01em; }
+    #header-subtitle { color: var(--text-muted); font-weight: 600; font-size: 16px; margin-top: 5px; }
 
+    /* Прокачанные супер-стеклянные карты */
     .widget-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(30px) saturate(190%);
-      -webkit-backdrop-filter: blur(30px) saturate(190%);
-      border-radius: 26px;
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border-radius: 24px;
       margin-bottom: 20px;
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), var(--glass-shadow);
+      box-shadow: var(--glass-shadow);
       overflow: hidden;
-      transition: transform 0.4s var(--spring), background-color 0.3s;
+      transition: transform 0.35s var(--spring);
     }
-    .widget-card:active { transform: scale(0.97); }
+    .widget-card:active { transform: scale(0.98); }
 
     /* Праздничный виджет */
     .holiday-widget {
       display: none;
       align-items: center;
       position: relative;
-      padding: 20px 24px;
-      gap: 16px;
+      padding: 18px 22px;
+      gap: 15px;
     }
-    .holiday-icon { font-size: 38px; z-index: 1; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+    .holiday-icon { font-size: 36px; z-index: 1; }
     .holiday-text { z-index: 1; }
-    .holiday-text h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
-    .holiday-text p { font-size: 14px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+    .holiday-text h3 { font-size: 17px; font-weight: 800; }
+    .holiday-text p { font-size: 13.5px; color: var(--text-muted); margin-top: 2px; }
     .ribbon-stripe {
       display: none;
       position: absolute;
@@ -408,112 +482,102 @@
       background: repeating-linear-gradient(-45deg, #ff6a00, #ff6a00 10px, #111111 10px, #111111 20px);
     }
 
-    /* Адресный виджет */
+    /* Адрес */
     .address-widget {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 22px 24px;
+      gap: 15px;
+      padding: 20px 22px;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
     }
     .icon-map {
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, var(--ios-blue), #0056b3);
-      border-radius: 16px;
+      width: 48px; height: 48px;
+      background: var(--ios-blue);
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 24px; color: white; flex-shrink: 0;
-      box-shadow: 0 8px 20px rgba(10, 132, 255, 0.3);
     }
-    .address-info h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
-    .address-info p { font-size: 13px; color: var(--text-muted); margin-top: 1px; }
+    .address-info h3 { font-size: 15.5px; font-weight: 700; }
+    .address-info p { font-size: 13px; color: var(--text-muted); }
 
-    /* Ограничители для скролла */
-    .section-anchor { scroll-margin-top: 76px; }
-    .section-title { font-size: 21px; font-weight: 800; margin: 24px 0 16px 8px; letter-spacing: -0.02em; }
+    /* Секции с отступами */
+    .section-anchor { scroll-margin-top: 70px; }
+    .section-title { font-size: 20px; font-weight: 800; margin: 20px 0 14px 6px; }
 
+    /* Сетка Услуг */
     .services-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 24px;
     }
     .service-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(30px) saturate(190%);
-      -webkit-backdrop-filter: blur(30px) saturate(190%);
-      padding: 22px;
-      border-radius: 26px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 20px;
+      border-radius: 24px;
       border: 1px solid var(--glass-border);
       display: flex; flex-direction: column; justify-content: space-between;
-      min-height: 155px;
-      box-shadow: var(--glass-inset), var(--glass-shadow);
-      transition: transform 0.4s var(--spring), background-color 0.3s;
+      min-height: 140px;
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.35s var(--spring);
     }
-    .service-card:active { transform: scale(0.94); }
-    .service-card span { font-size: 34px; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
-    .service-name { font-weight: 700; font-size: 14px; line-height: 1.3; letter-spacing: -0.01em; }
-    .service-price { font-weight: 800; font-size: 19px; color: var(--ios-green); margin-top: 6px; letter-spacing: -0.02em; }
+    .service-card:active { transform: scale(0.96); }
+    .service-card span { font-size: 32px; margin-bottom: 8px; display: inline-block; }
+    .service-name { font-weight: 800; font-size: 14px; line-height: 1.25; }
+    .service-price { font-weight: 800; font-size: 18px; color: var(--ios-green); margin-top: 4px; }
 
+    /* Список Контактов */
     .ios-list {
       background: var(--glass-bg);
-      backdrop-filter: blur(30px) saturate(190%);
-      -webkit-backdrop-filter: blur(30px) saturate(190%);
-      border-radius: 26px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px;
       margin-bottom: 24px;
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), var(--glass-shadow);
-      overflow: hidden;
+      box-shadow: var(--glass-shadow);
     }
     .list-item {
-      padding: 18px 22px;
-      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 15px;
       text-decoration: none; color: inherit;
       border-bottom: 1px solid var(--divider);
       cursor: pointer;
       width: 100%; background: none; border-left: none; border-right: none; border-top: none;
       text-align: left;
-      transition: background-color 0.2s;
     }
     .list-item:active { background: var(--card-hover); }
-    .list-item:first-child { border-radius: 26px 26px 0 0; }
-    .list-item:last-child { border-bottom: none; border-radius: 0 0 26px 26px; }
-    
+    .list-item:first-child { border-radius: 24px 24px 0 0; }
+    .list-item:last-child { border-bottom: none; border-radius: 0 0 24px 24px; }
     .item-icon {
-      width: 42px; height: 42px;
-      border-radius: 13px;
+      width: 38px; height: 38px;
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       font-size: 20px; color: white; flex-shrink: 0;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
     }
     .item-content { flex: 1; }
-    .item-title { font-weight: 700; font-size: 15px; margin-bottom: 1px; letter-spacing: -0.01em; }
+    .item-title { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
     .item-subtitle { font-size: 13px; color: var(--text-muted); }
 
+    /* Галерея */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      border-radius: 20px;
+      gap: 4px;
+      border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--glass-shadow);
       border: 1px solid var(--glass-border);
-      background: rgba(0,0,0,0.05);
-      padding: 4px;
     }
-    .photo-grid img { 
-      width: 100%; 
-      aspect-ratio: 1; 
-      object-fit: cover; 
-      border-radius: 14px;
-      transition: transform 0.4s ease;
-    }
-    .photo-grid img:active { transform: scale(0.96); }
+    .photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 
+    /* Нижнее интерактивное меню */
     .bottom-nav-wrapper {
       position: fixed;
-      bottom: 28px;
+      bottom: 25px;
       left: 0; right: 0;
       display: flex;
       justify-content: center;
@@ -524,23 +588,23 @@
     .bottom-glass-nav {
       pointer-events: auto;
       background: var(--glass-bg);
-      backdrop-filter: blur(34px) saturate(220%);
-      -webkit-backdrop-filter: blur(34px) saturate(220%);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), 0 16px 45px rgba(0,0,0,0.25);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.4) inset;
       border-radius: 40px;
       display: flex;
-      padding: 6px;
-      gap: 10px;
+      padding: 8px;
+      gap: 12px;
       transition: all 0.4s var(--spring);
     }
 
     .nav-btn {
-      width: 52px; 
-      height: 52px;
-      border-radius: 26px; 
+      width: 50px; 
+      height: 50px;
+      border-radius: 25px; 
       background: rgba(120, 120, 128, 0.08);
-      border: 1.5px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--divider);
       display: flex; 
       justify-content: center; 
       align-items: center;
@@ -549,32 +613,123 @@
       transition: all 0.4s var(--spring);
     }
 
-    .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; transition: stroke 0.3s, transform 0.3s; }
+    .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; transition: stroke 0.3s; }
     
     .nav-btn.active {
       background: var(--text-main);
       color: var(--mesh-1);
-      transform: scale(1.12);
+      transform: scale(1.1);
       border-color: transparent;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
     
-    .nav-btn.active svg { stroke: var(--mesh-1); transform: scale(1.05); }
-    .nav-btn:hover:not(.active) { background: rgba(120, 120, 128, 0.15); transform: translateY(-4px); }
-    .nav-btn:active { transform: scale(0.92); }
+    .nav-btn.active svg { stroke: var(--mesh-1); }
+    .nav-btn:hover:not(.active) { background: rgba(120, 120, 128, 0.15); transform: translateY(-3px); }
+    .nav-btn:active { transform: scale(0.95); }
 
-    /* Секретное меню отладки праздников */
+    /* Окно Отпуска */
+    #vacation-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      background: rgba(10, 10, 12, 0.25);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+    }
+
+    #vacation-modal {
+      width: min(100%, 440px);
+      padding: 24px 22px 20px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(34px) saturate(180%);
+      -webkit-backdrop-filter: blur(34px) saturate(180%);
+      text-align: center;
+      transform: translateY(8px) scale(0.98);
+      opacity: 0;
+      animation: vacationPop 0.4s var(--spring) forwards;
+    }
+
+    body.dark-theme #vacation-modal {
+      background: rgba(24, 24, 28, 0.65);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    @keyframes vacationPop {
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    #vacation-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      color: var(--text-main);
+    }
+
+    #vacation-text {
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-main);
+      opacity: 0.95;
+      margin-bottom: 10px;
+    }
+
+    #vacation-subtext {
+      display: block;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    #vacation-close-btn {
+      width: 100%;
+      margin-top: 18px;
+      border: none;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #007aff, #5ac8fa);
+      box-shadow: 0 10px 24px rgba(0, 122, 255, 0.2);
+      cursor: pointer;
+    }
+
+    #vacation-close-btn:active { transform: scale(0.98); }
+
+    body.message-open { overflow: hidden; }
+
+    body.message-open .mesh-background,
+    body.message-open #particles-container,
+    body.message-open .ribbons-bg,
+    body.message-open .top-bar,
+    body.message-open .container,
+    body.message-open .bottom-nav-wrapper {
+      filter: blur(12px) saturate(0.8);
+      transform: scale(1.01);
+    }
+
+    /* Отладочный пульт */
     #debug-menu {
       display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
       background: var(--glass-bg); backdrop-filter: blur(30px); padding: 18px;
       border-radius: 24px; z-index: 10000; border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inset), var(--glass-shadow); width: 92%; max-width: 360px; text-align: center;
+      box-shadow: var(--glass-shadow); width: 92%; max-width: 360px; text-align: center;
       animation: fadeIn 0.4s var(--spring);
     }
     .debug-btn {
       background: var(--ios-blue); color: white; border: none; padding: 10px 14px;
       border-radius: 14px; font-size: 13px; cursor: pointer; margin: 4px; font-weight: 700;
-      transition: transform 0.2s, background-color 0.2s;
+      transition: transform 0.2s;
     }
     .debug-btn:active { transform: scale(0.92); }
     .debug-btn.reset { background: var(--ios-red); }
@@ -609,13 +764,30 @@
   </div>
 
   <div class="top-bar">
-    <div class="island" id="dynamic-island">
-      <div class="dot" id="status-dot"></div>
-      <span id="status-text" data-i18n="status_loading">Определяем статус...</span>
+    <div class="island" id="dynamic-island" onclick="toggleIsland(event)">
+      <div class="island-header">
+        <div class="dot" id="status-dot"></div>
+        <span id="status-text" data-i18n="status_loading">Определяем статус...</span>
+      </div>
+      
+      <!-- Расширение Острова (Что нового) -->
+      <div class="island-body">
+        <div class="island-inner">
+          <div class="island-divider"></div>
+          <div class="island-date" id="island-current-date">--.--.----</div>
+          <div class="island-changelog-title" id="changelog-title" data-i18n="island_updates_title">Что нового:</div>
+          <ul class="island-changelog-list">
+            <li data-i18n="island_update_1">💎 Сверхреалистичное матовое стекло (без неона)</li>
+            <li data-i18n="island_update_2">🏝️ Расширяемый Динамический Остров по нажатию</li>
+            <li data-i18n="island_update_3">🌊 Плавный и мягкий ход летних волн</li>
+            <li data-i18n="island_update_4">⚡ Мгновенная прогрузка статуса без ошибок</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <!-- Индикатор бета-версии -->
-    <div id="beta-badge">Beta</div>
+    <!-- Индикатор БЕТА -->
+    <div id="beta-badge">BETA</div>
 
     <div class="lang-switcher">
       <button class="lang-btn" onclick="toggleLangMenu()">
@@ -705,21 +877,21 @@
     <h2 class="section-title section-anchor" id="contacts-section" data-i18n="contacts_title">Связь с мастером</h2>
     <div class="ios-list">
       <a href="tel:89027246061" class="list-item">
-        <div class="item-icon" style="background: rgba(48, 209, 88, 0.12); color: var(--ios-green);">📞</div>
+        <div class="item-icon" style="background: rgba(52, 199, 89, 0.1); color: var(--ios-green);">📞</div>
         <div class="item-content">
           <div class="item-title" data-i18n="phone">Телефон</div>
-          <div style="color: var(--text-muted); font-size: 13.5px;">+7 (902) 724-60-61</div>
+          <div style="color: var(--text-muted); font-size: 13px;">+7 (902) 724-60-61</div>
         </div>
       </a>
       <a href="https://t.me/ARTSANDCRAFTING" target="_blank" class="list-item">
-        <div class="item-icon" style="background: rgba(10, 132, 255, 0.12); color: var(--ios-blue);">✈️</div>
+        <div class="item-icon" style="background: rgba(0, 122, 255, 0.1); color: var(--ios-blue);">✈️</div>
         <div class="item-content">
           <div class="item-title" data-i18n="tg_title">Telegram канал</div>
           <div class="item-subtitle" data-i18n="tg_desc">Наши новости</div>
         </div>
       </a>
       <a href="https://max.ru/join/6vA9eQ-0nmP55CTnB5MfnYQ4zmW253WY_fukBZuK5lU" target="_blank" class="list-item">
-        <div class="item-icon" style="background: rgba(191, 90, 242, 0.12); color: #bf5af2;">🔗</div>
+        <div class="item-icon" style="background: rgba(88, 86, 214, 0.1); color: #5856d6;">🔗</div>
         <div class="item-content">
           <div class="item-title" data-i18n="max_title">MAX канал</div>
           <div class="item-subtitle" data-i18n="max_desc">Присоединиться</div>
@@ -740,7 +912,7 @@
       <img src="https://i.postimg.cc/tZKTz4t8/image.jpg" alt="Товар 9">
     </div>
 
-    <footer style="margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 13px;" data-i18n="footer">
+    <footer style="margin-top: 40px; text-align: center; color: var(--text-muted); font-size: 13px;" data-i18n="footer">
       АРТС&КРАФТИНГ • Тамбов • Мичуринская 141
     </footer>
   </div>
@@ -845,7 +1017,13 @@
         theme_light: "Светлая тема",
         view_message: "Посмотреть сообщение",
         vacation_sub: "Сообщение показывается только один раз для каждого устройства. Его можно открыть снова через меню языка и темы.",
-        vacation_close: "Понятно"
+        vacation_close: "Понятно",
+        island_date: "📅 Дата: ",
+        island_updates_title: "Что нового в этой версии:",
+        island_update_1: "💎 Сверхреалистичное матовое стекло (без неона)",
+        island_update_2: "🏝️ Расширяемый Динамический Остров по нажатию",
+        island_update_3: "🌊 Плавный и мягкий ход летних волн",
+        island_update_4: "⚡ Мгновенная прогрузка статуса без ошибок"
       },
       en: {
         subtitle: "Clothing repair — honest and on time",
@@ -886,7 +1064,15 @@
         menu_back: "Go back",
         theme_dark: "Dark Theme",
         theme_light: "Light Theme",
-        view_message: "View message"
+        view_message: "View message",
+        vacation_sub: "Message is shown once per device. Re-open via lang/theme menu.",
+        vacation_close: "Got it",
+        island_date: "📅 Date: ",
+        island_updates_title: "What's new in this version:",
+        island_update_1: "💎 Pure glassmorphic interface (no neon glow)",
+        island_update_2: "🏝️ Interactive Dynamic Island expansion on tap",
+        island_update_3: "🌊 Smooth and gentle background summer waves",
+        island_update_4: "⚡ Bulletproof instantaneous status definition"
       },
       kz: {
         subtitle: "Киім жөндеу — адал және уақытында",
@@ -929,7 +1115,13 @@
         theme_light: "Жарық тақырып",
         view_message: "Хабарламаны көру",
         vacation_sub: "Хабарлама әр құрылғыда тек бір рет көрсетіледі. Оны тіл мен тақырып мәзірінен қайта ашуға болады.",
-        vacation_close: "Түсінікті"
+        vacation_close: "Түсінікті",
+        island_date: "📅 Күні: ",
+        island_updates_title: "Бұл нұсқада не жаңалық:",
+        island_update_1: "💎 Таза физикалық шыны стилі (неонсыз)",
+        island_update_2: "🏝️ Басқан кезде интерактивті Динамикалық Арал",
+        island_update_3: "🌊 Фондық жазғы толқындардың бірқалыпты қозғалысы",
+        island_update_4: "⚡ Шеберхана күйін қатесіз жылдам анықтау"
       }
     };
 
@@ -968,6 +1160,7 @@
       document.getElementById('vacation-title').innerText = lang === 'en' ? '🏖 Vacation' : (lang === 'kz' ? '🏖 Демалыс' : '🏖 Отпуск');
       document.getElementById('vacation-subtext').innerText = dict[lang].vacation_sub || document.getElementById('vacation-subtext').innerText;
       document.getElementById('vacation-close-btn').innerText = dict[lang].vacation_close || 'Понятно';
+      
       updateHolidaysAndStatus();
     }
 
@@ -978,7 +1171,7 @@
       }
     });
 
-    const VACATION_MESSAGE_KEY = 'arts_crafting_vacation_notice_2026_v1';
+    const VACATION_MESSAGE_KEY = 'arts_crafting_vacation_notice_2026_v2';
 
     function applyVacationOpenState(isOpen) {
       const overlay = document.getElementById('vacation-overlay');
@@ -1072,6 +1265,38 @@
       return null;
     }
 
+    let islandClicks = 0;
+    let islandClickTimer;
+
+    function toggleIsland(event) {
+      // Исключаем раскрытие по клику на элементы внутри открытого Острова, если кликнули по ссылкам
+      if (event.target.tagName === 'A' || event.target.closest('a')) return;
+
+      const island = document.getElementById('dynamic-island');
+      
+      // Регистрируем нажатие для открытия дебаг-панели (5 кликов)
+      islandClicks++;
+      clearTimeout(islandClickTimer);
+      islandClickTimer = setTimeout(() => { islandClicks = 0; }, 2000);
+
+      if (islandClicks >= 5) {
+        document.getElementById('debug-menu').style.display = 'block';
+        islandClicks = 0;
+        return;
+      }
+
+      // Переключаем класс раскрытия
+      island.classList.toggle('expanded');
+    }
+
+    // Закрываем остров при клике вне его
+    document.addEventListener('click', (e) => {
+      const island = document.getElementById('dynamic-island');
+      if (island && !island.contains(e.target) && island.classList.contains('expanded')) {
+        island.classList.remove('expanded');
+      }
+    });
+
     function handleTitleClick() {
       if (titleDissolved) return; 
       titleDissolved = true;
@@ -1101,7 +1326,6 @@
       setTimeout(() => {
         title.style.display = 'none';
         
-        // В период отпуска (или если форсирован отпуск в тесте) таймер не открывается
         if (window.globalIsVacation) {
            document.getElementById('store-info-menu').style.display = 'block';
         } else {
@@ -1140,9 +1364,9 @@
           timerColor = 'var(--ios-red)'; 
         } else {
           const ratio = hoursLeft / 15; 
-          const r = Math.round(255 - (255 - 48) * ratio);
-          const g = Math.round(69 + (209 - 69) * ratio);
-          const b = Math.round(58 + (88 - 58) * ratio);
+          const r = Math.round(255 - (255 - 52) * ratio);
+          const g = Math.round(59 + (199 - 59) * ratio);
+          const b = Math.round(48 + (89 - 48) * ratio);
           timerColor = `rgb(${r}, ${g}, ${b})`;
         }
 
@@ -1188,6 +1412,34 @@
       titleDissolved = false; 
     }
 
+    let currentParticleType = null;
+    function createParticles(type) {
+      if (currentParticleType === type) return;
+      currentParticleType = type;
+      const container = document.getElementById('particles-container');
+      container.innerHTML = ''; 
+      if (!type) return;
+
+      const elements = [];
+      let count = 40;
+
+      if (type === 'snow') { elements.push('❄️', '❅', '❆'); count = 50; }
+      if (type === 'snow-gift') { elements.push('❄️', '❅', '🎁'); count = 60; }
+      if (type === 'flowers') { elements.push('🌸', '💮'); count = 35; }
+      if (type === 'gifts') { elements.push('🎁', '🎉', '🎊'); count = 30; }
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.innerText = elements[Math.floor(Math.random() * elements.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        p.style.animationDelay = Math.random() * 5 + 's';
+        p.style.fontSize = (Math.random() * 12 + 14) + 'px';
+        container.appendChild(p);
+      }
+    }
+
     let forcedHoliday = null;
 
     function testHoliday(type) {
@@ -1197,14 +1449,24 @@
 
     function updateHolidaysAndStatus() {
       const now = new Date();
+      // Переводим локальное время в Московское (UTC+3)
       const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
       const t = dict[currentLang]; 
       
+      const year = msk.getFullYear();
       let month = msk.getMonth(); 
       let date = msk.getDate();
       let day = msk.getDay(); 
       let hour = msk.getHours();
       let min = msk.getMinutes();
+
+      // Отображение текущей форматированной даты в Острове
+      const mskFormatted = msk.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : (currentLang === 'kz' ? 'kk-KZ' : 'en-US'), {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+      document.getElementById('island-current-date').innerText = (dict[currentLang].island_date || '📅 ') + mskFormatted;
 
       // Обработка симуляции из тест-панели
       if (forcedHoliday) {
@@ -1238,8 +1500,8 @@
       const isSummer = (month >= 5 && month <= 7);
       if(waves) waves.style.display = isSummer ? 'block' : 'none';
 
-      // 1. Отпуск (6-19 июля в 2026 году)
-      if ((month === 6 && date >= 6 && date <= 19) || forcedHoliday === 'vacation_force') {
+      // 1. Отпуск (с 6 по 19 июля 2026г или форсирован)
+      if ((year === 2026 && month === 6 && date >= 6 && date <= 19) || forcedHoliday === 'vacation_force') {
         isVacation = true;
       }
 
@@ -1334,44 +1596,10 @@
       }
     }
 
-    const contentObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.widget-card, .service-card, .ios-list, .photo-grid, .section-title').forEach(el => {
-      if (window.getComputedStyle(el).display !== 'none') {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(24px)";
-        el.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-        contentObserver.observe(el);
-      }
-    });
-
-    let islandClicks = 0;
-    const island = document.getElementById('dynamic-island');
-    if(island) {
-      island.addEventListener('click', () => {
-        islandClicks++;
-        if (islandClicks >= 5) {
-          document.getElementById('debug-menu').style.display = 'block';
-        }
-      });
-    }
-
+    // Инициализация при загрузке
     setLang('ru'); 
     initVacationMessage();
     setInterval(updateHolidaysAndStatus, 30000);
-
-    document.getElementById('vacation-overlay').addEventListener('click', (e) => {
-      if (e.target.id === 'vacation-overlay') {
-        closeVacationMessage();
-      }
-    });
   </script>
 </body>
 </html>
