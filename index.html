@@ -24,42 +24,42 @@
     }
   </script>
   <style>
-    /* Переменные ультра-стеклянной темы */
+    /* Переменные Ультра-чистой Стеклянной темы (Pure Liquid Glass) */
     :root {
       --ios-green: #34c759;
       --ios-blue: #007aff;
       --spring: cubic-bezier(0.16, 1, 0.3, 1);
       
-      --mesh-1: #e0f2fe;
-      --mesh-2: #dcfce7;
-      --mesh-3: #f3e8ff;
-      --mesh-4: #ffedd5;
+      --mesh-1: #f0f9ff;
+      --mesh-2: #ecfdf5;
+      --mesh-3: #faf5ff;
+      --mesh-4: #fff7ed;
       
-      /* Экстремально прозрачное толстое стекло */
-      --glass-bg: rgba(255, 255, 255, 0.32);
-      --glass-border: rgba(255, 255, 255, 0.65);
-      --glass-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      /* Чистое высокопрозрачное стекло с полированными гранями */
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.45);
+      --glass-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.03), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.7);
       
       --text-main: #1c1c1e;
       --text-muted: #6e6e73;
-      --divider: rgba(0, 0, 0, 0.05);
-      --card-hover: rgba(255, 255, 255, 0.5);
+      --divider: rgba(0, 0, 0, 0.04);
+      --card-hover: rgba(255, 255, 255, 0.3);
     }
 
     body.dark-theme {
-      --mesh-1: #09090b;
-      --mesh-2: #022c22;
-      --mesh-3: #1e1b4b;
-      --mesh-4: #2d1202;
+      --mesh-1: #090d16;
+      --mesh-2: #021e17;
+      --mesh-3: #120b1e;
+      --mesh-4: #1c0f06;
       
-      --glass-bg: rgba(20, 20, 25, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.09);
-      --glass-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      --glass-bg: rgba(15, 22, 36, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
       
       --text-main: #f5f5f7;
       --text-muted: #8e8e93;
       --divider: rgba(255, 255, 255, 0.06);
-      --card-hover: rgba(255, 255, 255, 0.04);
+      --card-hover: rgba(255, 255, 255, 0.05);
     }
 
     * {
@@ -82,17 +82,21 @@
       transition: background-color 0.8s var(--spring), color 0.8s var(--spring);
     }
 
-    /* Элитное размытие стеклянных элементов */
+    /* Чистое стекло: тонкий блур, акцент на глянец и отражения */
     .glass-premium {
       background: var(--glass-bg);
-      backdrop-filter: blur(40px) saturate(210%);
-      -webkit-backdrop-filter: blur(40px) saturate(210%);
+      backdrop-filter: blur(14px) saturate(190%);
+      -webkit-backdrop-filter: blur(14px) saturate(190%);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       transition: background-color 0.6s var(--spring), border-color 0.6s var(--spring), box-shadow 0.6s var(--spring), transform 0.4s var(--spring);
     }
 
-    /* Живой интерактивный градиентный фон без вращения (исправляет баг image_2570a8.png) */
+    .glass-premium:hover {
+      background-color: var(--card-hover);
+    }
+
+    /* Плавный дышащий фон (без вращения во избежание багов со срезами) */
     .mesh-background {
       position: fixed;
       inset: 0;
@@ -101,21 +105,21 @@
                   radial-gradient(circle at 90% 10%, var(--mesh-2), transparent 50%),
                   radial-gradient(circle at 85% 85%, var(--mesh-3), transparent 50%),
                   radial-gradient(circle at 15% 85%, var(--mesh-4), transparent 50%);
-      filter: blur(70px);
-      animation: breathe 18s ease-in-out infinite alternate;
+      filter: blur(60px);
+      animation: breathe 16s ease-in-out infinite alternate;
       transition: all 0.8s var(--spring);
     }
 
     @keyframes breathe {
       0% { transform: scale(1) translate(0px, 0px); }
-      100% { transform: scale(1.15) translate(10px, -10px); }
+      100% { transform: scale(1.1) translate(5px, -5px); }
     }
 
-    /* Летние волны на бэкграунде (с 1 июня по 1 сентября) */
+    /* Летние бесшовные SVG-волны (с 1 июня по 1 сентября) */
     .summer-waves-bg {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 380px;
+      height: 280px;
       z-index: -4;
       display: none;
       pointer-events: none;
@@ -126,22 +130,16 @@
       position: absolute;
       bottom: 0; left: 0;
       width: 200vw; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%23007aff" fill-opacity="0.12" d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,144C672,128,768,128,864,149.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%23007aff" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,144C672,128,768,128,864,149.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
       background-size: 50% 100%;
-      animation: waveAnim 15s linear infinite;
+      animation: waveAnim 18s linear infinite;
       transform-origin: bottom center;
     }
 
     .summer-wave:nth-child(2) {
-      bottom: -10px; opacity: 0.7;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%2330b0ff" fill-opacity="0.08" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,181.3C672,171,768,181,864,181.3C960,181,1056,171,1152,154.7C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-      animation: waveAnim 22s linear infinite reverse;
-    }
-
-    .summer-wave:nth-child(3) {
-      bottom: -25px; opacity: 0.4;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%235ac8fa" fill-opacity="0.06" d="M0,128L80,144C160,160,320,192,480,186.7C640,181,800,139,960,138.7C1120,139,1280,181,1360,202.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>');
-      animation: waveAnim 30s linear infinite;
+      bottom: -15px; opacity: 0.7;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%2330b0ff" fill-opacity="0.06" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,181.3C672,171,768,181,864,181.3C960,181,1056,171,1152,154.7C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      animation: waveAnim 24s linear infinite reverse;
     }
 
     @keyframes waveAnim {
@@ -174,15 +172,15 @@
 
     @keyframes sway {
       0% { transform: translateX(0) rotate(0deg); }
-      100% { transform: translateX(35px) rotate(45deg); }
+      100% { transform: translateX(30px) rotate(45deg); }
     }
 
-    /* Физический отклик кнопок */
+    /* Мягкий клик на кнопках */
     .btn-active-scale:active {
       transform: scale(0.96) translateY(1px);
     }
 
-    /* Песочный логотип */
+    /* Песочный распад логотипа */
     .sand-letter {
       display: inline-block;
       transition: transform 1.3s cubic-bezier(0.36, 0, 0.66, -0.56), opacity 1.1s ease, filter 1.1s ease;
@@ -194,13 +192,13 @@
       filter: blur(5px);
     }
 
-    /* Dynamic Island с поддержкой выпадающих обновлений */
+    /* Dynamic Island */
     .island {
-      background: rgba(18, 18, 22, 0.94);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(18, 18, 22, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: white;
       transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -217,7 +215,7 @@
       opacity: 1;
     }
 
-    /* Жёстко изолированное выпадающее меню языков и темы (Решает баг с image_25d985.jpg) */
+    /* Меню языков и темы с жесткими приоритетами */
     .lang-menu {
       position: absolute !important;
       top: 100% !important;
@@ -249,14 +247,13 @@
   <div class="summer-waves-bg" id="summer-waves">
     <div class="summer-wave"></div>
     <div class="summer-wave"></div>
-    <div class="summer-wave"></div>
   </div>
 
-  <!-- Контейнер для праздничного снега / цветов -->
+  <!-- Контейнер для праздничных эффектов -->
   <div id="particles-container"></div>
 
   <!-- Георгиевские ленты (9 Мая) -->
-  <div class="fixed inset-0 -z-30 pointer-events-none hidden opacity-40" id="ribbons-bg">
+  <div class="fixed inset-0 -z-30 pointer-events-none hidden opacity-30" id="ribbons-bg">
     <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <g stroke-linecap="square">
         <path d="M-100,100 C300,50 600,250 1200,50" stroke="#1c1c1e" stroke-width="40" fill="none" />
@@ -269,12 +266,17 @@
     </svg>
   </div>
 
-  <!-- ВЕРХНЯЯ ПАНЕЛЬ С ДИНАМИЧЕСКИМ ОСТРОВОМ (Выровнена по контейнеру) -->
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <div class="sticky top-4 z-[50] w-full max-w-[1200px] h-12 mx-auto px-4 flex justify-between items-center pointer-events-none">
     
-    <!-- Стабильный бета-значок (Не сдвигается!) -->
-    <div id="beta-badge" class="pointer-events-auto flex items-center justify-center bg-white/30 dark:bg-black/40 backdrop-blur-md border border-white/40 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-[10px] font-extrabold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-sm">
-      BETA 2026
+    <!-- Переключатель тем и кнопка БЕТА слева -->
+    <div class="flex items-center gap-2 pointer-events-auto">
+      <button class="glass-premium btn-active-scale flex items-center justify-center w-10 h-10 rounded-full text-neutral-800 dark:text-neutral-200" onclick="toggleTheme(event)">
+        <span id="theme-icon" class="text-base">🌙</span>
+      </button>
+      <div id="beta-badge" class="glass-premium flex items-center justify-center px-3.5 py-2.5 h-10 rounded-full text-[9.5px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 border border-amber-500/20 select-none">
+        BETA 2026
+      </div>
     </div>
 
     <!-- Dynamic Island по центру -->
@@ -282,42 +284,39 @@
       <div class="island w-[190px] rounded-[24px] px-4 py-2 flex flex-col justify-start items-center cursor-pointer overflow-hidden" id="dynamic-island" onclick="toggleIsland(event)">
         <!-- Шапка острова -->
         <div class="flex items-center gap-2 w-full justify-center">
-          <div class="w-2.5 h-2.5 rounded-full bg-zinc-600 transition-all duration-500 shrink-0" id="status-dot"></div>
+          <div class="w-2 h-2 rounded-full bg-zinc-600 transition-all duration-500 shrink-0" id="status-dot"></div>
           <span id="status-text" class="text-white text-xs font-semibold select-none truncate" data-i18n="status_loading">Определяем статус...</span>
         </div>
-        <!-- Список обновлений при раскрытии (Без битых unicode-символов!) -->
+        <!-- Список обновлений при раскрытии -->
         <div class="island-body w-full">
           <div class="overflow-hidden min-h-0 w-full pt-2 flex flex-col">
             <div class="w-full h-[1px] bg-white/10 my-2"></div>
             <div id="island-current-date" class="text-neutral-400 text-[10px] uppercase font-bold tracking-wider mb-2">📅 Дата: 23 июня 2026</div>
             <div class="text-white text-[11px] font-extrabold mb-1.5" data-i18n="island_updates_title">Что нового:</div>
             <ul class="flex flex-col gap-1 list-none pl-0">
-              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_1">Плавный перевод интерфейса</span></li>
-              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_2">Идеальная двухколоночная сетка для ПК</span></li>
-              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_3">Экстремальный Glassmorphic Pro стиль</span></li>
-              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_4">Физический Dynamic Island без багов</span></li>
+              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_1">Чистый стеклянный дизайн Pro</span></li>
+              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_2">Автономный информер об отпуске</span></li>
+              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_3">Полное устранение Beta-меток</span></li>
+              <li class="text-neutral-300 text-[10.5px] leading-relaxed flex items-start gap-1">✦ <span data-i18n="island_update_4">Мгновенное переключение тем</span></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Кнопка языков и темы (Настроен запуск в закрытом состоянии) -->
+    <!-- Меню выбора языков справа -->
     <div class="lang-switcher pointer-events-auto relative">
       <button class="lang-btn glass-premium btn-active-scale flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold text-neutral-800 dark:text-neutral-200" onclick="toggleLangMenu(event)">
         <span id="current-lang-icon" class="text-sm">🇷🇺</span> 
         <span id="current-lang-text" class="tracking-wider">RU</span>
       </button>
       
-      <!-- Выпадающее меню (Контролируется строго изолированным CSS-классом) -->
+      <!-- Выпадающее меню -->
       <div class="lang-menu glass-premium shadow-lg" id="lang-menu">
         <div class="lang-option px-4 py-3 text-xs font-semibold hover:bg-white/10 flex items-center gap-2 cursor-pointer border-b border-white/10 text-neutral-800 dark:text-neutral-200" onclick="setLang('ru', event)"><span>🇷🇺</span> Русский</div>
         <div class="lang-option px-4 py-3 text-xs font-semibold hover:bg-white/10 flex items-center gap-2 cursor-pointer border-b border-white/10 text-neutral-800 dark:text-neutral-200" onclick="setLang('en', event)"><span>🇬🇧</span> English</div>
         <div class="lang-option px-4 py-3 text-xs font-semibold hover:bg-white/10 flex items-center gap-2 cursor-pointer border-b border-white/10 text-neutral-800 dark:text-neutral-200" onclick="setLang('kz', event)"><span>🇰🇿</span> Қазақша</div>
         <div class="h-[1px] bg-neutral-200 dark:bg-white/10 my-1"></div>
-        <div class="lang-option px-4 py-3 text-xs font-semibold hover:bg-white/10 flex items-center gap-2 cursor-pointer text-neutral-800 dark:text-neutral-200" onclick="toggleTheme(event)">
-          <span id="theme-icon">🌙</span> <span id="theme-text" data-i18n="theme_dark">Тёмная тема</span>
-        </div>
         <div class="lang-option px-4 py-3 text-xs font-semibold hover:bg-white/10 flex items-center gap-2 cursor-pointer text-neutral-800 dark:text-neutral-200" onclick="showVacationMessage()">
           <span>📢</span> <span data-i18n="view_message">Посмотреть сообщение</span>
         </div>
@@ -325,7 +324,7 @@
     </div>
   </div>
 
-  <!-- ОСНОВНОЙ КОНТЕНТ (Умная адаптация для ПК/Моб) -->
+  <!-- ОСНОВНОЙ КОНТЕНТ (Двухколоночный Grid для ПК, Стек для смартфонов) -->
   <div class="container max-w-[1200px] mx-auto px-4 pt-12 pb-32 transition-opacity duration-300">
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -351,7 +350,23 @@
           <p id="header-subtitle" class="text-sm font-semibold text-neutral-500 dark:text-neutral-400 mt-2.5 tracking-wide" data-i18n="subtitle">Ремонт одежды — честно и в срок</p>
         </header>
 
-        <!-- Праздничный виджет -->
+        <!-- АВТОНОМНОЕ МЕНЮ ОБ ОТПУСКЕ (Чистое стекло) -->
+        <div class="glass-premium rounded-3xl p-5 border border-amber-500/20 dark:border-amber-400/10 shadow-sm relative overflow-hidden flex flex-col gap-3" id="standalone-vacation-card">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 dark:bg-amber-400/10 text-amber-500 flex items-center justify-center text-xl shrink-0">
+              🏖
+            </div>
+            <div>
+              <h3 class="text-sm font-black text-neutral-900 dark:text-white leading-tight" data-i18n="vacation_banner_title">Предстоящий отпуск</h3>
+              <p class="text-[11px] text-amber-600 dark:text-amber-400 font-bold" data-i18n="vacation_banner_dates">С 6 по 19 июля 2026г.</p>
+            </div>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed" data-i18n="vacation_banner_text">
+            Уважаемые клиенты! Обратите внимание, что в указанный период мастерская не будет работать. Ждем вас со всеми заказами с 20 июля!
+          </p>
+        </div>
+
+        <!-- Праздничный динамический виджет -->
         <div class="glass-premium holiday-widget rounded-3xl relative overflow-hidden p-5 flex items-center gap-4 shadow-md" id="holiday-widget">
           <div class="ribbon-stripe" id="holiday-ribbon"></div>
           <div class="holiday-icon text-4xl shrink-0" id="holiday-icon"></div>
@@ -363,10 +378,8 @@
 
         <!-- Адрес -->
         <a href="https://yandex.ru/maps/?text=Тамбов+Мичуринская+141" class="glass-premium rounded-3xl flex items-center gap-4 p-5 btn-active-scale shadow-sm">
-          <div class="w-12 h-12 bg-ios-blue text-white rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-ios-blue/20 shrink-0">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
+          <div class="w-12 h-12 bg-ios-blue text-white rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-ios-blue/10 shrink-0">
+            📍
           </div>
           <div class="address-info">
             <h3 class="text-sm font-black text-neutral-900 dark:text-white leading-tight" data-i18n="address_city">г. Тамбов, ул. Мичуринская 141</h3>
@@ -380,10 +393,8 @@
           <div class="ios-list glass-premium rounded-3xl overflow-hidden shadow-sm">
             <a href="tel:89027246061" class="list-item flex items-center justify-between p-4 border-b border-neutral-200/50 dark:border-white/5 hover:bg-white/5 transition-all">
               <div class="flex items-center gap-4">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-ios-green/10 text-ios-green">
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.58c0-.56-.45-1.04-1-1.04z"/>
-                  </svg>
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-ios-green/10 text-ios-green text-lg font-bold">
+                  📞
                 </div>
                 <div>
                   <div class="font-bold text-xs" data-i18n="phone">Телефон</div>
@@ -393,10 +404,8 @@
             </a>
             <a href="https://t.me/ARTSANDCRAFTING" target="_blank" class="list-item flex items-center justify-between p-4 border-b border-neutral-200/50 dark:border-white/5 hover:bg-white/5 transition-all">
               <div class="flex items-center gap-4">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-ios-blue/10 text-ios-blue">
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M9.78 18.65l.28-4.24 7.68-6.94c.33-.3-.07-.46-.51-.17L7.74 13.3 3.64 12c-.89-.28-.9-.89.19-1.31l16.01-6.17c.74-.27 1.39.18 1.15 1.25l-2.72 12.83c-.19.97-.78 1.21-1.6 1.21s-.82-.24-1.44-.61l-4.24-3.13-2.04 1.97-.24 1.11z"/>
-                  </svg>
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-ios-blue/10 text-ios-blue text-lg font-bold">
+                  ✈️
                 </div>
                 <div>
                   <div class="font-bold text-xs" data-i18n="tg_title">Telegram канал</div>
@@ -406,10 +415,8 @@
             </a>
             <a href="https://max.ru/join/6vA9eQ-0nmP55CTnB5MfnYQ4zmW253WY_fukBZuK5lU" target="_blank" class="list-item flex items-center justify-between p-4 hover:bg-white/5 transition-all">
               <div class="flex items-center gap-4">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-purple-500/10 text-purple-500">
-                  <svg class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                  </svg>
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-purple-500/10 text-purple-500 text-lg font-bold">
+                  🔗
                 </div>
                 <div>
                   <div class="font-bold text-xs" data-i18n="max_title">MAX канал</div>
@@ -430,49 +437,32 @@
           <h2 class="section-title section-anchor text-sm font-black uppercase tracking-wider text-neutral-400 mb-3 ml-1" id="services-section" data-i18n="services_title">Что мы делаем</h2>
           <div class="grid grid-cols-2 gap-4">
             <!-- Карточка 1 -->
-            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[150px] btn-active-scale shadow-sm">
-              <div class="text-ios-green w-10 h-10 mb-2">
-                <svg class="w-full h-full stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
+            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[140px] btn-active-scale shadow-sm">
+              <div class="text-3xl mb-2">⚙️</div>
               <div>
                 <div class="text-[11px] font-bold text-neutral-800 dark:text-neutral-200" data-i18n="srv1_name">Замена бегунка</div>
                 <div class="text-base font-black text-ios-green mt-1"><span data-i18n="from">от</span> 150₽</div>
               </div>
             </div>
             <!-- Карточка 2 -->
-            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[150px] btn-active-scale shadow-sm">
-              <div class="text-ios-green w-10 h-10 mb-2">
-                <svg class="w-full h-full fill-current" viewBox="0 0 24 24">
-                  <path d="M19 11h-6V3a1 1 0 0 0-1.7-.7l-9 11A1 1 0 0 0 3 15h6v8a1 1 0 0 0 1.7.7l9-11a1 1 0 0 0-.7-1.7z"/>
-                </svg>
-              </div>
+            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[140px] btn-active-scale shadow-sm">
+              <div class="text-3xl mb-2">🪡</div>
               <div>
                 <div class="text-[11px] font-bold text-neutral-800 dark:text-neutral-200" data-i18n="srv2_name">Замена молнии</div>
                 <div class="text-base font-black text-ios-green mt-1"><span data-i18n="from">от</span> 450₽</div>
               </div>
             </div>
             <!-- Карточка 3 -->
-            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[150px] btn-active-scale shadow-sm">
-              <div class="text-ios-green w-10 h-10 mb-2">
-                <svg class="w-full h-full stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
+            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[140px] btn-active-scale shadow-sm">
+              <div class="text-3xl mb-2">🧥</div>
               <div>
                 <div class="text-[11px] font-bold text-neutral-800 dark:text-neutral-200" data-i18n="srv3_name">Ремонт кожи и меха</div>
                 <div class="text-base font-black text-ios-green mt-1"><span data-i18n="from">от</span> 500₽</div>
               </div>
             </div>
             <!-- Карточка 4 -->
-            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[150px] btn-active-scale shadow-sm">
-              <div class="text-ios-green w-10 h-10 mb-2">
-                <svg class="w-full h-full stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16L4 4z" />
-                </svg>
-              </div>
+            <div class="glass-premium rounded-3xl p-5 flex flex-col justify-between min-h-[140px] btn-active-scale shadow-sm">
+              <div class="text-3xl mb-2">📐</div>
               <div>
                 <div class="text-[11px] font-bold text-neutral-800 dark:text-neutral-200" data-i18n="srv4_name">Подшив брюк/джинс</div>
                 <div class="text-base font-black text-ios-green mt-1"><span data-i18n="from">от</span> 400₽</div>
@@ -537,7 +527,7 @@
   </div>
 
   <!-- Окно Отпуска -->
-  <div id="vacation-overlay" aria-hidden="true" class="fixed inset-0 z-[99999] hidden justify-center items-center p-4 bg-slate-900/10 dark:bg-zinc-950/20 backdrop-blur-2xl">
+  <div id="vacation-overlay" aria-hidden="true" class="fixed inset-0 z-[99999] hidden justify-center items-center p-4 bg-slate-900/10 dark:bg-zinc-950/20 backdrop-blur-md">
     <div id="vacation-modal" role="dialog" aria-modal="true" class="glass-premium p-6 rounded-[32px] w-full max-w-[420px] text-center shadow-2xl">
       <h2 id="vacation-title" class="text-2xl font-black tracking-tight mb-4">🏖 Отпуск</h2>
       <p id="vacation-text" class="text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
@@ -609,11 +599,14 @@
         view_message: "Посмотреть сообщение",
         vacation_sub: "Сообщение показывается только один раз для каждого устройства. Его можно открыть снова через меню языка и темы.",
         vacation_close: "Понятно",
+        vacation_banner_title: "Предстоящий отпуск 🏖",
+        vacation_banner_dates: "С 6 по 19 июля 2026г.",
+        vacation_banner_text: "Уважаемые клиенты! Обратите внимание, что в указанный период мастерская не будет работать. Ждем вас со всеми заказами с 20 июля!",
         island_updates_title: "Что нового:",
-        island_update_1: "Плавный перевод интерфейса",
-        island_update_2: "Идеальная двухколоночная сетка для ПК",
-        island_update_3: "Экстремальный Glassmorphic Pro стиль",
-        island_update_4: "Физический Dynamic Island без багов"
+        island_update_1: "Чистый стеклянный дизайн Pro",
+        island_update_2: "Автономный информер об отпуске",
+        island_update_3: "Полное устранение Beta-меток",
+        island_update_4: "Мгновенное переключение тем"
       },
       en: {
         subtitle: "Clothing repair — honest and on time",
@@ -657,11 +650,14 @@
         view_message: "View message",
         vacation_sub: "The message is shown only once for each device. It can be reopened via the language and theme menu.",
         vacation_close: "Got it",
+        vacation_banner_title: "Upcoming Vacation 🏖",
+        vacation_banner_dates: "From July 6 to July 19, 2026",
+        vacation_banner_text: "Dear customers! Please note that the workshop will be closed during this period. Looking forward to seeing you with all orders from July 20!",
         island_updates_title: "What's new:",
-        island_update_1: "Seamless fade on translation",
-        island_update_2: "Perfect dual-column grid for PC",
-        island_update_3: "Extreme Glassmorphic Pro styling",
-        island_update_4: "Physical bug-free Dynamic Island"
+        island_update_1: "Pure glass Pro styling",
+        island_update_2: "Standalone vacation informer banner",
+        island_update_3: "Full removal of Beta labels",
+        island_update_4: "Instant theme toggler"
       },
       kz: {
         subtitle: "Киім жөндеу — адал және уақытында",
@@ -703,13 +699,16 @@
         theme_dark: "Қараңғы тақырып",
         theme_light: "Жарық тақырып",
         view_message: "Хабарламаны көру",
-        vacation_sub: "Хабарлама әр құрылғыда тек бір рет көрсетіледі. Оны тіл мен тақырып мәзірінен қайта ашуға болады.",
+        vacation_sub: "Хабарлама әр құрылғыда тек бір рет көрсетіледі. Oны тіл мен тақырып мәзірінен қайта ашуға болады.",
         vacation_close: "Түсінікті",
+        vacation_banner_title: "Жоспарланған демалыс 🏖",
+        vacation_banner_dates: "2026 жылғы 6 - 19 шілде аралығында",
+        vacation_banner_text: "Құрметті клиенттер! Аталған кезеңде шеберхана жұмыс істемейтінін ескеріңіз. Барлық тапсырыстарыңызбен сізді 20 шілдеден бастап күтеміз!",
         island_updates_title: "Жаңалықтар:",
-        island_update_1: "Аударма кезіндегі біркелкі өшу",
-        island_update_2: "ДК-ге арналған тамаша қос бағанды ​​тор",
-        island_update_3: "Экстремалды Glassmorphic Pro стилі",
-        island_update_4: "Қатесіз физикалық Dynamic Island"
+        island_update_1: "Таза шыны Pro стилі",
+        island_update_2: "Автономды демалыс баннері",
+        island_update_3: "Beta белгілерін толық алып тастау",
+        island_update_4: "Тақырыпты жылдам ауыстыру тетігі"
       }
     };
 
@@ -722,7 +721,7 @@
     let currentParticleType = null;
     let forcedHoliday = null;
 
-    // --- УЛЬТРА-ПЛАВНЫЙ ПЕРЕВОД ---
+    // --- ПЛАВНЫЙ ПЕРЕВОД ---
     function setLang(lang, event) {
       if (event) event.stopPropagation();
       if (lang === currentLang) {
@@ -747,14 +746,13 @@
           }
         });
 
-        // Синхронизируем заголовки вне атрибутов i18n
+        // Синхронизируем заголовки
         const icons = { ru: "🇷🇺", en: "🇬🇧", kz: "🇰🇿" };
         const texts = { ru: "RU", en: "EN", kz: "KZ" };
 
         document.getElementById('current-lang-icon').innerText = icons[currentLang];
         document.getElementById('current-lang-text').innerText = texts[currentLang];
 
-        document.getElementById('theme-text').innerText = isDarkMode ? dict[currentLang].theme_light : dict[currentLang].theme_dark;
         document.getElementById('vacation-title').innerText = currentLang === 'en' ? '🏖 Vacation' : (currentLang === 'kz' ? '🏖 Демалыс' : '🏖 Отпуск');
         document.getElementById('vacation-subtext').innerText = dict[currentLang].vacation_sub || document.getElementById('vacation-subtext').innerText;
         document.getElementById('vacation-close-btn').innerText = dict[currentLang].vacation_close || 'Понятно';
@@ -779,9 +777,7 @@
       document.body.classList.toggle('dark-theme', isDarkMode);
       document.documentElement.classList.toggle('dark', isDarkMode);
       
-      const t = dict[currentLang];
       document.getElementById('theme-icon').innerText = isDarkMode ? '☀️' : '🌙';
-      document.getElementById('theme-text').innerText = isDarkMode ? t.theme_light : t.theme_dark;
       document.getElementById('lang-menu').classList.remove('open');
     }
 
@@ -828,7 +824,7 @@
       }
     }
 
-    // --- ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ (SCROLL REVEAL) ---
+    // --- ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ---
     const elementsToReveal = document.querySelectorAll('.glass-premium, .widget-card, .service-card, .ios-list, .photo-grid, .section-title');
     elementsToReveal.forEach(el => {
       el.style.opacity = '0';
@@ -1097,7 +1093,7 @@
       let hour = msk.getHours();
       let min = msk.getMinutes();
 
-      // Вывод форматированной даты в Dynamic Island
+      // Вывод даты в Dynamic Island
       const mskFormatted = msk.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : (currentLang === 'kz' ? 'kk-KZ' : 'en-US'), {
         day: 'numeric',
         month: 'long',
@@ -1123,6 +1119,7 @@
       const wRibbon = document.getElementById('holiday-ribbon');
       const bgRibbons = document.getElementById('ribbons-bg');
       const waves = document.getElementById('summer-waves');
+      const stVacationCard = document.getElementById('standalone-vacation-card');
 
       wWidget.style.display = 'none';
       wRibbon.style.display = 'none';
@@ -1137,8 +1134,17 @@
       if(waves) waves.style.display = isSummer ? 'block' : 'none';
 
       // 1. Отпуск (6-19 июля)
-      if ((year === 2026 && month === 6 && date >= 6 && date <= 19) || forcedHoliday === 'vacation_force') {
+      if ((month === 6 && date >= 6 && date <= 19) || forcedHoliday === 'vacation_force') {
         isVacation = true;
+      }
+
+      // Постоянный показ автономной карточки отпуска, если отпуск еще впереди или уже идет
+      if (stVacationCard) {
+        if ((month === 5 && date >= 1) || (month === 6 && date <= 19) || forcedHoliday === 'vacation_force') {
+          stVacationCard.style.display = 'flex';
+        } else {
+          stVacationCard.style.display = 'none';
+        }
       }
 
       // 2. 9 Мая
@@ -1218,7 +1224,7 @@
       const label = document.getElementById('status-text');
 
       // Сброс классов
-      dot.className = "w-2.5 h-2.5 rounded-full transition-all duration-500 shrink-0";
+      dot.className = "w-2 h-2 rounded-full transition-all duration-500 shrink-0";
 
       if (isVacation) {
         // Желтая точка при отпуске
@@ -1237,7 +1243,7 @@
     }
 
     // --- СТАРТ ПРИЛОЖЕНИЯ ---
-    updateHolidaysAndStatus(); // Мгновенный запуск при открытии (исправляет "Определение статуса...")
+    updateHolidaysAndStatus(); 
     setLang('ru'); 
     initVacationMessage();
     setInterval(updateHolidaysAndStatus, 30000);
